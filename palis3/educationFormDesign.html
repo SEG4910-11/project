@@ -1,0 +1,161 @@
+<!DOCTYPE html> 
+<html> 
+    <head> 
+    <title id="title">Palis - </title> 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="css/jquery-ui.css" />
+    <link rel="stylesheet" href="css/jquery.mobile-1.1.1.min.css" />
+    <link rel="stylesheet" href="css/form.css" />
+    
+    <script src="js/jquery-1.7.1.min.js"></script>
+    <script src ="js/jquery-ui-1.10.0.custom.min.js"></script>
+    <script src ="js/quickforms.js"></script>
+    <script src="js/education.js"></script>
+    <script src="js/jquery.mobile-1.1.1.min.js"></script>
+	<script type="text/javascript">
+	$(function(){
+		getFieldSelection(app,'education',null,function(){
+			addParticipants();
+		});
+		
+		$('#MedPart,#AlliedPart,#NursePart,#MixedPart').live("keyup" ,function()
+		{
+			$('#participantsError').css('color','red');
+			if(validateNumber($(this)))
+			{
+				$('#participantsError').html("");
+			}
+			else
+			{
+				$('#participantsError').html("Please enter numbers only");
+			}
+		});
+		
+	});
+	function validateNumber(dom)
+	{
+		if(is_int(dom.val())==false)
+		{
+			return false;
+		}
+		else
+		{	
+			return true;
+		}
+	}
+	function putEducation()
+	{
+		var num=0;
+		$('#MedPart,#AlliedPart,#NursePart,#MixedPart').each(function(i,dom){
+			if(validateNumber($(dom)))
+			{
+				num++;
+			}
+			else
+			{
+				$('#participantsError').attr('tabindex',1);
+				$('#participantsError').focus();
+			}
+		});
+		if(num==4)
+			putFact(app,'education','education.html');
+	}
+</script>
+    
+</head> 
+<body onload =""> 
+
+<div data-role="page">
+
+	<div data-role="header">
+		<h1 id="header">Palis - </h1>
+        <a href="logout.html" rel="external" data-role="button" data-inline="true" data-theme="c" class="ui-btn-right">Logout</a>
+	</div><!-- /header -->
+
+	<div data-role="content" data-inset="true">
+	
+	
+        <!-- FORM START -->
+        <form id ="mainForm" method="POST" action="putFact">
+            
+            
+            <a href="educationForm.html" rel="external" data-role="button" data-inline="true" data-icon="back">Cancel</a>
+            <a href="#" rel="external" onClick="putEducation()" data-role="button" data-inline="true" data-theme="b" data-icon="check">Submit</a>
+			<a href="#" rel="external" onClick="deleteRow(app,'education','education.html')" class="deleteButton" data-role="button" data-inline="true" data-icon="delete">Delete</a>
+
+            <br/>
+            
+            <input id ="title" name ="title" value ="Initiative" style="font-weight:bold;"/> 
+			<table>
+            <tr>
+			<td><input id="textbox_id1" name="text1" value="Option1" style="width: 800px" /></td>
+			<td><button for="textbox_id1">Remove</button></td>
+			<td><button for="textbox_id1">Modify</button></td>
+			</tr>
+			<tr>
+			<td><input id="textbox_id2" name="text2" value="Option2" style="width: 800px" /></td>
+			<td><button for="textbox_id2">Remove</button></td>
+			<td><button for="textbox_id2">Modify</button></td>
+			</tr>
+			<tr>
+			<td><input id="textbox_id3" name="text2" value="add an option ..." style="width: 800px" /></td>
+			<td><button for="textbox_id3">Add</button></td>
+			</tr>
+			</table>
+			
+            
+			
+            <label for="title" class ="ui-input-text">Title:</label>
+            <input id ="title" name ="title" type ="text"/>
+
+            <label for="date" class ="ui-input-text">Date:</label>
+            <input name="date" id="date" type="text" class="date">
+            
+            <label for="course">Course:</label>
+            <select id ="course" name ="course" data-native-menu="false">
+                <option value ="1">Something!</option>
+            </select>
+            
+            <label for="area">Area:</label>
+            <select id ="area" name ="area" data-native-menu="false"></select>
+            
+            <label for="EduHours">Education Hours:</label>
+            <select id ="EduHours" name ="EduHours" data-native-menu="true"></select>
+            
+            <label for="TravelTime">Travel Time:</label>
+            <select id ="TravelTime" name ="TravelTime" data-native-menu="true"> </select>
+            
+            <h3 id ="numParticipantsTitle">Number Of Participants:</h3><!-- Total Number of participants  auto updated -->
+			<div id="participantsError"></div>
+            <label for="MedPart">Medical Participants:</label>
+            <input id ="MedPart" name ="MedPart" type ="text" value="0" onblur="addParticipants()"/> <!-- add an onchange event-->
+            
+            <label for="NursePart">Nurse Participants:</label>
+            <input id ="NursePart" name ="NursePart" type ="text" value="0" onblur="addParticipants()"/>
+            
+            <label for="AlliedPart">Allied Participants:</label>
+            <input id ="AlliedPart" name ="AlliedPart" type ="text" value="0" onblur="addParticipants()"/>
+            
+            <label for="MixedPart">Not Specified Participants:</label>
+            <input id ="MixedPart" name ="MixedPart" type ="text" value="0" onblur="addParticipants()"/>
+          
+           
+            <br/>
+
+            <a href="education.html" rel="external" data-role="button" data-inline="true" data-icon="back">Cancel</a>
+            <a href="#" rel="external" onClick="putEducation()" data-role="button" data-inline="true" data-theme="b" data-icon="check">Submit</a>  
+        </form>
+        <!-- Form ENd -->
+    
+    
+	</div>	
+		
+	<div data-role="footer">
+	   <h4></h4>
+	</div>
+
+</div><!-- /page -->
+
+</body>
+</html>
