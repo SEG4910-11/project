@@ -88,7 +88,13 @@
             <br/>
             
             <label for="initiative" class ="ui-input-text">Initiative:</label> 
-            <select id ="initiative" name ="initiative" data-native-menu="false"></select>
+            <select id ="initiative" name ="initiative" data-native-menu="false">
+           
+           <option value="volvo">Volvo</option>
+  <option value="saab">Saab</option>
+  <option value="opel">Opel</option>
+  <option value="audi">Audi</option>
+            </select>
             
             <label for="title" class ="ui-input-text">Title:</label>
             <input id ="title" name ="title" type ="text"/>
@@ -113,16 +119,16 @@
             <h3 id ="numParticipantsTitle">Number Of Participants:</h3><!-- Total Number of participants  auto updated -->
 			<div id="participantsError"></div>
             <label for="MedPart">Medical Participants:</label>
-            <input id ="MedPart" name ="MedPart" type ="text" value="0" onblur="addParticipants()"/> <!-- add an onchange event-->
+            <input id ="MedPart" name ="MedPart" type ="text" value="0" onBlur="addParticipants()"/> <!-- add an onchange event-->
             
             <label for="NursePart">Nurse Participants:</label>
-            <input id ="NursePart" name ="NursePart" type ="text" value="0" onblur="addParticipants()"/>
+            <input id ="NursePart" name ="NursePart" type ="text" value="0" onBlur="addParticipants()"/>
             
             <label for="AlliedPart">Allied Participants:</label>
-            <input id ="AlliedPart" name ="AlliedPart" type ="text" value="0" onblur="addParticipants()"/>
+            <input id ="AlliedPart" name ="AlliedPart" type ="text" value="0" onBlur="addParticipants()"/>
             
             <label for="MixedPart">Not Specified Participants:</label>
-            <input id ="MixedPart" name ="MixedPart" type ="text" value="0" onblur="addParticipants()"/>
+            <input id ="MixedPart" name ="MixedPart" type ="text" value="0" onBlur="addParticipants()"/>
           
            
             <br/>

@@ -10,7 +10,7 @@
     
     <script src="js/jquery-1.7.1.min.js"></script>
     <script src ="js/jquery-ui-1.10.0.custom.min.js"></script>
-    <script src ="js/quickforms.js"></script>
+    <script src ="js/quickforms2.js"></script>
     <script src="js/education.js"></script>
     <script src="js/jquery.mobile-1.1.1.min.js"></script>
 	<script type="text/javascript">
@@ -86,8 +86,15 @@
 
             <br/>
             
-            <input id ="title" name ="title" value ="Initiative" style="font-weight:bold;"/> 
-			<table>
+			
+			
+            <p id ="initiative"></p> 
+			<p id ="course"></p>
+			<p id ="area"></p>
+			<p id ="eduhours"></p>
+			<p id ="travelTime"></p>
+			
+			<!-- <table>
             <tr>
 			<td><input id="textbox_id1" name="text1" value="Option1" style="width: 800px" /></td>
 			<td><button for="textbox_id1">Remove</button></td>
@@ -102,47 +109,11 @@
 			<td><input id="textbox_id3" name="text2" value="add an option ..." style="width: 800px" /></td>
 			<td><button for="textbox_id3">Add</button></td>
 			</tr>
-			</table>
+			</table> -->
 			
             
 			
-            <label for="title" class ="ui-input-text">Title:</label>
-            <input id ="title" name ="title" type ="text"/>
-
-            <label for="date" class ="ui-input-text">Date:</label>
-            <input name="date" id="date" type="text" class="date">
-            
-            <label for="course">Course:</label>
-            <select id ="course" name ="course" data-native-menu="false">
-                <option value ="1">Something!</option>
-            </select>
-            
-            <label for="area">Area:</label>
-            <select id ="area" name ="area" data-native-menu="false"></select>
-            
-            <label for="EduHours">Education Hours:</label>
-            <select id ="EduHours" name ="EduHours" data-native-menu="true"></select>
-            
-            <label for="TravelTime">Travel Time:</label>
-            <select id ="TravelTime" name ="TravelTime" data-native-menu="true"> </select>
-            
-            <h3 id ="numParticipantsTitle">Number Of Participants:</h3><!-- Total Number of participants  auto updated -->
-			<div id="participantsError"></div>
-            <label for="MedPart">Medical Participants:</label>
-            <input id ="MedPart" name ="MedPart" type ="text" value="0" onblur="addParticipants()"/> <!-- add an onchange event-->
-            
-            <label for="NursePart">Nurse Participants:</label>
-            <input id ="NursePart" name ="NursePart" type ="text" value="0" onblur="addParticipants()"/>
-            
-            <label for="AlliedPart">Allied Participants:</label>
-            <input id ="AlliedPart" name ="AlliedPart" type ="text" value="0" onblur="addParticipants()"/>
-            
-            <label for="MixedPart">Not Specified Participants:</label>
-            <input id ="MixedPart" name ="MixedPart" type ="text" value="0" onblur="addParticipants()"/>
-          
-           
-            <br/>
-
+         
             <a href="education.html" rel="external" data-role="button" data-inline="true" data-icon="back">Cancel</a>
             <a href="#" rel="external" onClick="putEducation()" data-role="button" data-inline="true" data-theme="b" data-icon="check">Submit</a>  
         </form>
