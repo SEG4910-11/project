@@ -17,7 +17,7 @@ $(function(){
 		}
 	}
 });
-//window.onbeforeunload = unauthenticate; 
+//window.onbeforeunload = unauthenticate;
 //function unauthenticate()
 //{
 //	setCookie('username','',1);

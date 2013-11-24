@@ -95,13 +95,13 @@
                     <a href="#" rel="external" onClick="submitPatientInfo()" data-role="button" data-inline="true" data-theme="b" data-icon="check">Submit</a>
 
                     <br/>
-                    <label for="RequestDate" class ="ui-input-text">Don't know which Date:</label>
+                    <label for="RequestDate" class ="ui-input-text">Don't know which Date</label>
                     <input name="RequestDate" id="RequestDate" type="text" class="date">
 
-                    <label for="DeliveryDate" class ="ui-input-text">Referral Date:</label>
+                    <label for="DeliveryDate" class ="ui-input-text">Referral Date</label>
                     <input name="DeliveryDate" id="DeliveryDate" type="text" class="date">  
 
-					<label for="PrimaryProviderName class ="ui-input-text">Primary Provider:</label>
+					<label for="PrimaryProviderName class ="ui-input-text">Primary Provider</label>
                     <input id ="PrimaryProviderName" name ="PrimaryProviderName" type ="text"/>
                     
                     <label for="TypeOfProvider" class ="ui-input-text">Location of Provider</label>
@@ -109,33 +109,33 @@
                         <option value="-1">-- Not Selected--</option><option value="783">ORCC</option><option value="784">QCH</option><option value="785">TOH Civic</option><option value="786">TOH Gen</option><option value="787">TOH Rivers</option><option value="788">Monfort</option><option value="789">ROH</option><option value="790">Rehab</option><option value="791">CCC</option><option value="792">PCU</option><option value="793">Primary Care</option><option value="794">FHT</option><option value="795">LTC</option><option value="800">Resid NH</option><option value="801">Hospice</option><option value="802">Comm CCAC</option><option value="803">Other</option>
                     </select>
                     
-                    <label for="FirstName" class ="ui-input-text">First Name:</label>
+                    <label for="FirstName" class ="ui-input-text">First Name</label>
                     <input type="text" id ="FirstName" name ="FirstName" />
 
-                    <label for="LastName" class ="ui-input-text">Last Name:</label>
+                    <label for="LastName" class ="ui-input-text">Last Name</label>
                     <input id ="LastName" name ="LastName" type ="text"/>
 
-                    <label for="BirthDate" class ="ui-input-text">Date of Birth:</label>
+                    <label for="BirthDate" class ="ui-input-text">Date of Birth</label>
                     <input name="BirthDate" id="BirthDate" type="text" class="birthdate">
 
-                    <label for="Gender" class ="ui-input-text">Gender:</label>
+                    <label for="Gender" class ="ui-input-text">Gender</label>
                     <select id ="Gender" name ="Gender" data-native-menu="false">
                         <option value ="1">-- Not Selected --</option>
                         <option value ="2">Male</option>
                         <option value ="3">Female</option>
                     </select>
 					
-					<label for="Kilometers" class ="ui-input-text">Kilometers:</label>
+					<label for="Kilometers" class ="ui-input-text">Kilometers</label>
                     <input id ="Kilometers" name ="Kilometers" type ="text"
 					onkeypress="if(this.value.match(/[^.0-9]/)) this.value=this.value.replace(/[^.0-9]/g,'') "
 					onkeyup   ="if(this.value.match(/[^.0-9]/)) this.value=this.value.replace(/[^.0-9]/g,'')  " 
 					/>
                     
                     <div id="OHIPError"></div>
-                    <label for="OHIPNo" class ="ui-input-text">OHIP:</label>
+                    <label for="OHIPNo" class ="ui-input-text">OHIP</label>
                     <input id ="OHIPNo" name ="OHIPNo" type ="text"/>
 					
-					<label for="RefSource">Referral Source</label>
+					<label for="RefSource" class ="ui-input-text">Referral Source</label>
                     <select id ="RefSource" name ="RefSource" data-native-menu="false">
                         <option value ="1">-- Not Selected --</option>
                         <option value ="2">CCAC Case Manager</option>
@@ -148,7 +148,7 @@
                         
                     </select>
 
-                    <label for="Location">Patient Location</label>
+                    <label for="Location" class ="ui-input-text">Patient Location</label>
                     <select id ="Location" name ="Location" data-native-menu="false">
                         <option value ="1">-- Not Selected --</option>
                         <option value ="2">Male</option>
@@ -156,8 +156,8 @@
                     </select>
 					
                     
-                    <label for="diagnosis">Primary Diagnosis</label>
-                    <select id ="diagnosis" name ="Diagnosis" data-native-menu="false">
+                    <label for="Diagnosis" class ="ui-input-text">Primary Diagnosis</label>
+                    <select id ="Diagnosis" name ="Diagnosis" data-native-menu="false">
                         <option value ="1">-- Not Selected --</option>
                         <option value ="2">Male</option>
                         <option value ="3">Female</option>
@@ -165,6 +165,15 @@
                     
                     <label for="GoalOfCareEst">Goals of Care Discussed</label>
                     <input type="checkbox" name="GoalOfCareEst" id="GoalOfCareEst" value="1">
+					
+										
+					  <label for="Language" class ="ui-input-text">Language</label>
+                    <select id ="Language" name ="Language" data-native-menu="false">
+                        <option value ="1">English</option>
+                        <option value ="2">French</option>
+                        <option value ="3">Telugu</option>
+                    </select>
+					
                     
 				<label for="Notes" class ="ui-input-text">Notes</label>
                     <textarea name="Notes" id="Notes" ></textarea>

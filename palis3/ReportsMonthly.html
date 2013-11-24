@@ -20,8 +20,15 @@
                         var reports = ['educationReport','monthlyReport','summaryReport'];
                         if(report == 'monthly')
 							window.location = 'ReportsMonthly.html';
+							else
 						if(report == 'education')
 							window.location = 'Reports.html'; 
+							else
+						if(report == 'summary')
+							window.location = 'ReportsSummary.html'; 
+						else
+				if(report == 'summary2')
+				window.location = 'ReportsSummary2.html'; 
                     }
                 </script>
   </head>
@@ -54,7 +61,8 @@ persist">Reports</a></li>
                         <ul data-role="listview" id="availableReports">
                                 <li><a href="#" onclick ="switchReport('education')" rel="external">Education Report</a></li>
                                 <li><a href="#" onclick ="switchReport('monthly')" rel="external">Monthly Report</a></li>
-                                <li><a href="#" onclick ="switchReport('summary')" rel="external">Summary Report</a></li>
+                                <li><a href="#" onclick ="switchReport('summary')" rel="external">Consultation Registration Statistics</a></li>
+								<li><a href="#" onclick ="switchReport('summary2')" rel="external">Consultation Appointment Statistics</a></li>
                         </ul>
                     </div>
                     <input type="hidden" id="monthSelectJSON" />
@@ -93,9 +101,7 @@ width="150px">Ottawa</td>
 
         </div>
         <div id ="SummaryMonthlyEducation" class="content-primary" data-theme="d">
-            <table cellpadding="2" cellspacing="0" border="1" class="display"
-
-id="EducationInitiativeTotals"><tbody><tr class="oddgradeU">
+            <table cellpadding="2" cellspacing="0" border="1" class="display" id="EducationInitiativeTotals"><tbody><tr class="oddgradeU">
                         <td  align="right" class="oddgradeU" width="150px"></td>
                         <td id="TotalSessions" align="right" class="oddgradeU" width="150px"></td>
                         <td id="TotalParticipants" align="right" class="oddgradeU" width="150px"></td>
@@ -122,15 +128,13 @@ width="250px"></td>
 		</div>
 		<div id ="SummaryNonCaseBased" class="content-primary" data-theme="d">
 			<table cellpadding="2" cellspacing="0" border="1" class="display" id="EducationInitiative">
-                        <tbody><tr class="oddgradeU"><td id="ConsultationType" align="right" class="oddgradeU" 
-
-width="250px"></td>
+                        <tbody><tr class="oddgradeU"><td id="ConsultationType" align="right" class="oddgradeU" width="250px"></td>
                                 <td id="Total" align="right" class="oddgradeU" width="250px"></td>
                                 <td id="HoursOfCare" align="right" class="oddgradeU" width="250px"></td></tr>
 			</tbody></table>
 		</div>
 		<h2>Consultation with Providers (Case Based)</h2>
-		<input type="button" onclick="window.clipboardData.setData('Text', $('#clipSummaryCaseBased').val());" value="Copy to Clipboard" align="right"/>
+		<input type="button" onclick="window.clipboardData.setData('Text', $('#clipMonthlyConsultationProviders').val());" value="Copy to Clipboard" align="right"/>
 
 		<div id ="MonthlyConsultationProviders" class="content-primary" data-theme="d">
 			<table cellpadding="2" cellspacing="0" border="1" class="display" id="EducationInitiative">
@@ -139,8 +143,7 @@ width="250px"></td>
                                 <td align="right" class="table_header" width="250px">Total</td>
                                 <td align="right" class="table_header" width="250px">Hours of Care</td>
 								<td align="right" class="table_header" width="250px">Avg Waiting Time(days)</td></tr></thead>
-								
-                        
+								                       
                         <tbody><tr class="oddgradeU">
                                 <td id="Type" align="right" class="oddgradeU" width="250px"></td>
                                 <td id="Total" align="right" class="oddgradeU" width="250px"></td>
@@ -149,8 +152,7 @@ width="250px"></td>
 			</tbody></table>
 		</div>
 		<div id ="SummaryCaseBased" class="content-primary" data-theme="d">
-			<table cellpadding="2" cellspacing="0" border="1" class="display" id="EducationInitiative">
-                        
+			<table cellpadding="2" cellspacing="0" border="1" class="display" id="EducationInitiative">                        
                         <tbody><tr class="oddgradeU"><td id="Type" align="right" class="oddgradeU" width="250px"></td>
                                 <td id="Total" align="right" class="oddgradeU" width="250px"></td>
                                 <td id="HoursOfCare" align="right" class="oddgradeU" width="250px"></td>

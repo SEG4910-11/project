@@ -3,7 +3,6 @@
 	<head> 
 	<title id="title">Palis - </title> 
 	
-	<script src="js/quickforms.js"></script>
 	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.css" />
 	<link rel="stylesheet" href="http://jeromeetienne.github.com/jquery-mobile-960/css/jquery-mobile-fluid960.min.css" />
 	<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
@@ -17,7 +16,7 @@
         </script>
 	
 <script type="text/javascript">
-      function drawVisualization() {
+      function drawVisualization(i,j,k,l,m,n,o,p,q) {
       	
       	// Define Colors
       	
@@ -25,19 +24,23 @@
       var axisColor = '#3e3e3e';
       var gridlinesColor = '#ffffff';
       var axisTitleColor = '#333333';
-      	
-        // Create and populate the data table.
+	  
       var data_column = new google.visualization.arrayToDataTable([
+	  
+	  
     ['Category','Score'],
-    ['Pain',   3],
-    ['Nausea',   4],
-    ['Tiredness',   2],
-    ['Mood',   3],
-    ['Anxiety',   6],
-    ['Appetite',   2],
-    ['Wellbeing',   1],
-	['Shortness of Breath',   9]
+    ['Pain',   i],
+    ['Nausea',   j],
+    ['Tiredness',   k],
+    ['Mood',   l],
+    ['Anxiety',   m],
+    ['Appetite',   n],
+    ['Wellbeing',   o],
+	['Shortness of Breath',   p],
+	['Drowsiness',   q]
+	
   ]);
+	
   
     // *********************//
     // *** CREATE CHARTS ***//
@@ -60,21 +63,21 @@
       
 	   var chartResizeTimer;
        
-       window.onresize = function adjustSize() {
+      /** window.onresize = function adjustSize() {
               clearTimeout(chartResizeTimer);
-              chartResizeTimer = setTimeout(drawVisualization(), 100);
-               };
+              chartResizeTimer = setTimeout(drawVisualization(1,2,3,4,5,6,7,8), 100);
+               };*/
                
-       $(document).on('pageshow','[data-role=page]', function(){
-  drawVisualization();
-});
+ /**      $(document).on('pageshow','[data-role=page]', function(){
+  drawVisualization(1,2,3,4,5,6,7,8);
+});*/
 
        
     </script>
         
 
 </head> 
-<body onload =""> 
+<body onload="loadEsasReport()">
 
 <div data-role="page" data-theme="c">
 
@@ -104,7 +107,44 @@
 		
 			<div id="columnChart" class="action"></div>
 			
-			<div data-role="collapsible" data-theme="b" data-content-theme="c">
+			
+			
+										<h1>Age and Sex Statistics </h1>
+<input type="button" onclick="window.clipboardData.setData('Text', $('#clipEsasTable').val());" value="Copy to Clipboard" align="right"/>
+
+		<div id ="EsasTable" class="content-primary" data-theme="d">
+			
+			
+			<table cellpadding="2" cellspacing="0" border="1" class="display" >
+                        <thead><tr class="gradeU"><td align="right" class="table_header" width="150px"> Date </td>
+                                <td align="right" class="table_header" width="150px">Pain</td>
+                                <td align="right" class="table_header" width="150px">Tiredness</td>
+                                <td align="right" class="table_header" width="150px">Mood</td>
+								<td align="right" class="table_header" width="150px">Nausea</td>
+								<td align="right" class="table_header" width="150px">Anxiety</td>
+								<td align="right" class="table_header" width="150px">Drowsiness</td>
+								<td align="right" class="table_header" width="150px">Appetite</td>
+								<td align="right" class="table_header" width="150px">Well Being</td>
+								<td align="right" class="table_header" width="150px">Shortness of Breaths</td>
+								</tr></thead>
+                      				  
+                        <tbody><tr class="oddgradeU"><td id="Date" align="right" class="oddgradeU" width="150px">Pain</td>
+                                <td id="Pain" align="right" class="oddgradeU" width="150px">0</td>
+                                <td id="Tiredness" align="right" class="oddgradeU" width="150px">0</td>
+								<td id="Mood" align="right" class="oddgradeU" width="150px">0</td>
+								<td id="Nausea" align="right" class="oddgradeU" width="150px">0</td>
+								<td id="Anxiety" align="right" class="oddgradeU" width="150px">0</td>
+								<td id="Drowsiness" align="right" class="oddgradeU" width="150px">0</td>
+								<td id="Appetite" align="right" class="oddgradeU" width="150px">0</td>
+								<td id="WellBeing" align="right" class="oddgradeU" width="150px">0</td>
+								<td id="ShortnessOfBreath" align="right" class="oddgradeU" width="150px">0</td>
+                                </tr>
+			</tbody></table>
+			
+		
+			
+			
+		<!--	<div data-role="collapsible" data-theme="b" data-content-theme="c">
 				<h2>Choose a Report...</h2>
 				<ul data-role="listview">
 					<li><a href="Reports.html" rel="external">ESAS Report</a></li>
@@ -119,7 +159,7 @@
 			   <option value="weekly">Weekly</option>
 			</select>
 		</div>
-		</div>
+		</div> -->
 	<div data-role="footer" data-theme="d">
 	   <h4></h4>
 	</div>

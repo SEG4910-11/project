@@ -20,8 +20,16 @@
 			var reports = ['educationReport','monthlyReport','summaryReport'];
                         if(report == 'monthly')
 				window.location = 'ReportsMonthly.html';
+				else
 			if(report == 'education')
 				window.location = 'Reports.html'; 
+				else
+			if(report == 'summary')
+				window.location = 'ReportsSummary.html'; 
+				else
+				if(report == 'summary2')
+				window.location = 'ReportsSummary2.html'; 
+				
                         
                     }
                 </script>
@@ -37,7 +45,7 @@
      <a href="problem.html" data-role="button" data-rel="dialog" data-theme="c" style="position:relative;top:-5px">Report a Problem</a>
       <a href="logout.html" rel="external" data-role="button" data-theme="c" style="position:relative;top:-5px">Logout</a>
     </div>
-	</div>--><!-- /header -->
+	</div><!-- /header -->
 		
 
                 <div data-role="navbar">
@@ -55,7 +63,8 @@
                         <ul data-role="listview" id="availableReports">
                                 <li><a href="#" onclick ="switchReport('education')" rel="external">Education Report</a></li>
                                 <li><a href="#" onclick ="switchReport('monthly')" rel="external">Monthly Report</a></li>
-                                <li><a href="#" onclick ="switchReport('summary')" rel="external">Summary Report</a></li>
+                                <li><a href="#" onclick ="switchReport('summary')" rel="external">Consultation Registration Statistics</a></li>
+								<li><a href="#" onclick ="switchReport('summary2')" rel="external">Consultation Appointment Statistics</a></li>
                         </ul>
                     </div>
                     

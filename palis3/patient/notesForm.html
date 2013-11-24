@@ -35,17 +35,23 @@
             <a href="#" rel="external" onClick="putFact(app,'notes','forms.html');" data-role="button" data-inline="true" data-theme="b" data-icon="check">Submit</a>
 
             <br/>
+			
+			<label for="consultant" class ="ui-input-text">Consultant</label>
+            <select id ="consultant" name ="consultant" >
+                <option value="1">Followup face to face Consult</option>
+                <option value="2">Initial face to face Consult</option>
+            </select> 
 
-            <label for="Date" class ="ui-input-text">Encounter Date:</label>
+            <label for="Date" class ="ui-input-text">Encounter Date</label>
             <input name="Date" id="Date" type="text" class="date">
             
-            <label for="label">Label:</label>
+            <label for="label">Label</label>
             <input id ="label" name ="label" type="text" class="combobox"/>
             
-            <label for="attachment">Attachment:</label>
+            <label for="attachment">Attachment</label>
             <input id ="attachment" name ="attachment" type="file"/>
             
-            <label for="Note" class ="ui-input-text">Notes:</label>
+            <label for="Note" class ="ui-input-text">Notes</label>
             <input name="Note" id="Note" type="text">
             <br/>
 

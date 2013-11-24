@@ -45,9 +45,9 @@ function getFieldSelection(appName, factName,paramid, callback) {
 		$('.deleteButton').hide();
 	}
     // Find all children within the form that have the "select" tag
-    var len = $('p').length;
+    var len = $('table').length;
     var count = 0;
-    $('p').each(function(){
+    $('table').each(function(){
          var thisDom = $(this);
          var domId = thisDom.attr("id");
 		var url = '/'+quickforms+'/getFieldSelection.aspx?app='+appName+'&factTable='+factName+'&field='+domId+'&updateId='+updateid;
@@ -63,8 +63,8 @@ function getFieldSelection(appName, factName,paramid, callback) {
                     if(data != ""){
 						// replace the current select dom elements with the JSON supplied from the controller
 						var tag= thisDom[0].tagName;
-						if ( tag == 'P') 
-							convertJSONtoSelect(thisDom,data);
+						if ( tag == 'TABLE') 
+							convertJSONtoSelect(thisDom,data,domId);
 						else if(thisDom[0].tagName == 'UL')
 						   convertJSONtoUl(thisDom,data,domId);
 						if(thisDom.hasClass('combobox'))
@@ -105,20 +105,28 @@ function getFieldSelection(appName, factName,paramid, callback) {
 	$( ".date" ).attr('onclick','disable_selects()');
     $(".birthdate").datepicker({ yearRange: '-105:+1',changeYear: true,defaultDate: '01/01/1943' });
 }
-function convertJSONtoSelect(thisDom, data)
+
+//This function is used to list the options of each field in a textbox format
+function convertJSONtoSelect(thisDom, data, domId)
 {
     if(isJSONString(data)){
 		thisDom.children().remove();
         var json = JSON.parse(data);
-		thisDom.prepend('<div class="container">');
+		
         for(i=0;i<json.length;i++)
         {
 			var id= json[i].id;
 			var label= json[i].label;
 			var selected= json[i].selected;
-            thisDom.append('<input type="checkbox" value='+id+''+selected+'/>'+json[i].label+'</br>');
-        }
-		thisDom.append('</div>');
+            var formName= 'educationFormDesign.html';
+			
+		    thisDom.append('<tr><td><a href="#" rel="external" onClick="deleteRow(\x27'+app+'\x27,\x27'+domId+'\x27,'+id+',\x27educationFormDesign.html\x27)" data-role="button" data-inline="true" data-icon="delete" data-iconpos="notext"></a> <a href="#" rel="external" onClick="" data-role="button" data-inline="true" data-icon="arrow-u" data-iconpos="notext"></a> <a href="#" rel="external" onClick="" data-role="button" data-inline="true" data-icon="arrow-d" data-iconpos="notext"></a></td> <td><input id="'+id+'" class="'+domId+'" value="'+label+'" style="width: 300px;"></td></tr>');
+		   
+		}
+		
+		thisDom.append('<tr><td></td><td><input id="'+domId+'" placeholder="Add an option..."  style="width: 300px; margin-left:20px;"></td></tr>');
+		thisDom.append('<tr><td></td><td><a href="#" rel="external" onClick="putLookup(\x27'+app+'\x27,\x27'+domId+'\x27,\x27educationFormDesign.html\x27)" data-role="button" data-inline="true" style="margin-left:20px;">Add</a><a href="#" rel="external" onClick="editLookup(\x27'+app+'\x27,\x27'+domId+'\x27,\x27educationFormDesign.html\x27)" data-role="button" data-inline="true" ">Edit</a></td></tr>');
+		
     }
     else
     {
@@ -271,10 +279,100 @@ function highlightMostRecent()
 			}
 		});
 }
+
+//This function is used to make an ajax request to the controller in order to add a new option to a specific field
+//The function accepts the application name, lookup table name, and the html page name
+function putLookup(appName, lkupName, location)
+{
+	//Look for the textbox where the option is added
+	$("input").each(function(){
+         var thisDom = $(this);
+         var domId = thisDom.attr("id");
+		 var option;
+		 //when the textbox is found, get the label of the new option
+		 if(domId== lkupName)
+		 {
+			option= thisDom.attr("value");
+			if(option=="")
+			{
+				alert("The field's option is empty");
+			}
+			else
+			{
+			//make an ajax request and add the new option
+			$.ajax({
+					type: 'POST',
+					url: '/'+quickforms+'/putLkup.aspx',
+					data: {app:appName,tbl: lkupName, label : option},
+					success: function(data,status,xhr){
+					
+							window.location.reload();
+					},
+					error: function(xhr, status, e)
+					{
+						alert('Sorry, Palis seems to be having some technical difficulties at the moment. Please contact lpeyton@uottawa.ca to resolve the issue.');
+						if(queryServer)
+						{
+							window.alert("Row not saved, could not connect to server: "+e);
+						}
+						else
+						{
+							window.location.href = location;
+						}
+					}
+					});
+		 }}
+		 })
+   
+}
+
+function editLookup(appName, lkupName, location)
+{
+	//Look for the textbox where the option is added
+	$("input").each(function(){
+         var thisDom = $(this);
+         var domClass = thisDom.attr("class");
+		 var array=domClass.split(" ");
+		 var lkup= array[0];
+		 var option;
+		 var rowId;
+		 //when the textbox is found, get the label of the new option
+		 if(lkup == lkupName)
+		 {
+			option= thisDom.attr("value");
+			rowId= thisDom.attr("id");
+			//make an ajax request and add the new option
+			$.ajax({
+					type: 'POST',
+					url: '/'+quickforms+'/editLkup.aspx',
+					data: {app:appName,tbl: lkupName, label : option, id : rowId},
+					success: function(data,status,xhr){
+					
+							window.location.reload();
+					},
+					error: function(xhr, status, e)
+					{
+						alert('Sorry, Palis seems to be having some technical difficulties at the moment. Please contact lpeyton@uottawa.ca to resolve the issue.');
+						if(queryServer)
+						{
+							window.alert("Row not saved, could not connect to server: "+e);
+						}
+						else
+						{
+							window.location.href = location;
+						}
+					}
+					});
+		 }
+		 })
+   
+}
+
+
 function putFact (appName, factName, location)
 {
 
-    //// append the information about the app and the fact table to the form
+    // append the information about the app and the fact table to the form
     $('<input />').attr('type', 'hidden')
             .attr('name', 'app')
             .attr('value', appName)
@@ -482,16 +580,34 @@ function loadTabularData(appName,factName, queryName, parameterList, callback)
         window.setTimeout(function(){highlightMostRecent()},500);
     }
 }
-function deleteRow(app,fact,redirect)
+
+function deleteRow(appName,lkup,id,redirect)
 {
-	if(confirm('Delete this record?'))
-	{
-		var id = getParameterByName('id');
-		executeQuery(app,'delete_'+fact,fact+'Key:'+id,function(){
-			window.location = redirect;
-		});
-		
-	}
+		//$('input[type=checkbox]:checked').each(function(){
+         //var thisDom = $(this);
+        // var id
+		// id= thisDom.attr("value");
+		 $.ajax({
+					type: 'POST',
+					url: '/'+quickforms+'/deleteLkup.aspx',
+					data: {app:appName,tbl: lkup, row : id},
+					success: function(data,status,xhr){
+					
+							window.location = redirect;
+					},
+					error: function(xhr, status, e)
+					{
+						alert('Sorry, Palis seems to be having some technical difficulties at the moment. Please contact lpeyton@uottawa.ca to resolve the issue.');
+						if(queryServer)
+						{
+							window.alert("Row not saved, could not connect to server: "+e);
+						}
+						else
+						{
+							window.redirect.reload();
+						}
+					}
+					});
 }
 
 function getChildrenScripts(root)

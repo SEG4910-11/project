@@ -101,7 +101,7 @@
 		}
 	</script>
 </head> 
-<body onload ="getFieldSelection(app,'consultation',null,setConsultType)"> 
+<body onload ="getFieldSelection(app,'initialconsultation',null,setConsultType)"> 
 
 <script>
 var km=getCookie('kms');
@@ -126,33 +126,33 @@ $('#Kilometers').val(km);
             
             
             <a href="forms.html" rel="external" data-role="button" data-inline="true" data-icon="back">Cancel</a>
-            <a href="#" rel="external" onClick="convertKilometers(); fixName(); putFact(app,'consultation','forms.html');" data-role="button" data-inline="true" data-theme="b" data-icon="check">Submit</a>
+            <a href="#" rel="external" onClick="convertKilometers(); fixName(); putFact(app,'initialconsultation','forms.html');" data-role="button" data-inline="true" data-theme="b" data-icon="check">Submit</a>
 
             <br/>
             
-            <label for="consultant">Consultant:</label>
+            <label for="consultant" class ="ui-input-text">Consultant</label>
             <select id ="consultant" name ="consultant" >
-                <option value="1">Followup face to face Consult</option>
+                <option value="1">Followup face to face Consult blah blah</option>
                 <option value="2">Initial face to face Consult</option>
             </select> 
             <div id ="ConsultTypeSection">
-            <label for="ConsultType">Consult ConsultType:</label>
+            <label for="ConsultType">Consult ConsultType</label>
             	<select id ="ConsultType" name ="ConsultType" >
                 	<option value="1">Followup face to face Consult</option>
                 	<option value="2">Initial face to face Consult</option>
             	</select> 
 		</div>
 		<div id="WasScheduled">
-		<label for="Scheduled">Was Scheduled:</label>
+		<label for="Scheduled" class ="ui-input-text">Was Scheduled</label>
             <select id ="Scheduled" name ="Scheduled" >
                 <option value="1">Scheduled</option>
                 <option value="2">Not Scheduled</option>
             </select> 
             </div>
-            <label for="RequestDate" class ="ui-input-text">Date:</label>
+            <label for="RequestDate" class ="ui-input-text">Date</label>
             <input name="RequestDate" id="RequestDate" ConsultType="text" class="date">
             <div id="providerName">
-            <label for="RequestPhysician" class ="ui-input-text">Provider Name:</label>
+            <label for="RequestPhysician" class ="ui-input-text">Provider Name</label>
 			<input type="text" id ="RequestPhysician" name ="RequestPhysician"  
 			onkeypress="if(this.value.match(/[&=]/)) this.value=this.value.replace(/[&=]/g,''); "
 			onkeyup   ="if(this.value.match(/[&=]/)) this.value=this.value.replace(/[&=]/g,''); "/>
@@ -162,7 +162,7 @@ $('#Kilometers').val(km);
             </select> 
 			</div>
 			<div id="ProviderType">
-            <label for="ProviderType" class ="ui-input-text">Provider Type:</label>
+            <label for="ProviderType" class ="ui-input-text">Provider Type</label>
             <select id ="ProviderType" name ="ProviderType" >
                 <option value="1">Nurse</option>
                 <option value="2">Physician</option>
@@ -255,12 +255,12 @@ $('#Kilometers').val(km);
             	</select> 
 		</div>
             </div>
-            <label for="notes" class ="ui-input-text">Notes:</label>
+            <label for="notes" class ="ui-input-text">Notes</label>
             <textarea name="notes" id="notes"> </textarea>
             <br/>
 
             <a href="forms.html" rel="external" data-role="button" data-inline="true" data-icon="back">Cancel</a>
-            <a href="#" rel="external" onClick="convertKilometers(); fixName(); putFact(app,'consultation','forms.html')" data-role="button" data-inline="true" data-theme="b" data-icon="check">Submit</a>  
+            <a href="#" rel="external" onClick="convertKilometers(); fixName(); putFact(app,'initialconsultation','forms.html')" data-role="button" data-inline="true" data-theme="b" data-icon="check">Submit</a>  
         </form>
         <!-- Form ENd -->
     

@@ -19,51 +19,16 @@
 		{
 			var consultLabel = "";
 			var km=getCookie('kms');
-			if(ConsultType=="initial")
-			{
-				$('#presentSection').hide();
-				$('#hoursSection').hide();
-				$('#consultLocationSection').hide();
-				$('#Kilometers').hide();
-				$('#TravelTime').hide();
-				$('#WasScheduled').hide();
-				consultLabel ="Initial Consult";
-			}
-			else if(ConsultType=="followup")
-			{
-				$('#presentSection').hide();
-				$('#hoursSection').hide();
-				$('#consultLocationSection').hide();
-				$('#Kilometers').hide();
-				$('#TravelTime').hide();
-				$('#Region').hide();
-				$('#TopicSpecific').hide();
-				$('#PhySymptom').hide();
-				$('#PsycSymptom').hide();
-				consultLabel ="Followup Consult";
-			}
-			else if(ConsultType == "facetoface")
-			{
-				$('#Region').hide();
-				$('#TopicSpecific').hide();
-				$('#PhySymptom').hide();
-				$('#PsycSymptom').hide();
-				$('#providerName').hide();
-				$('#ProviderType').hide();
-				$('#referralSite').hide();
-				consultLabel ="Face to Face Consult";
-				//$('#Kilometers').val(km);				
-								
-			}
 			
-			$('#ConsultTypeSection').hide();
-			$('#formTitle').append("<h1>"+consultLabel+"</h1>");
+			
+				
+				
+			
+			
+			
 		}
 		
-		function convertKilometers()
-		{
-		Kilometers.value= parseFloat(Kilometers.value);
-		}
+		
 		$(function(){
 			hideFields(getParameterByName('type'));
 		});
@@ -81,27 +46,23 @@
 			{
 				var ConsultType=getParameterByName('type');
 
-				if(ConsultType=='initial')
+				
 					$('#ConsultType option:eq(1)').attr('selected', 'selected');
-				if(ConsultType=='followup')
-					$('#ConsultType option:eq(2)').attr('selected', 'selected');
-				if(ConsultType=='facetoface')
-					$('#ConsultType option:eq(3)').attr('selected', 'selected');
-				$('#ConsultType').selectmenu('refresh');
+					$('#ConsultType').selectmenu('refresh');
 			}
 			else
 			{
 				var ConsultType = 'initial'
-				if($('#ConsultType').val() == 4)
-					ConsultType = 'followup';
-				else if($('#ConsultType').val() == 1)
-					ConsultType = 'facetoface';
 				hideFields(ConsultType);
 			}
+			
+			
+			consultLabel ="Initial Consult";
+			$('#formTitle').append("<h1>"+consultLabel+"</h1>");
 		}
 	</script>
 </head> 
-<body onload ="getFieldSelection(app,'consultation',null,setConsultType)"> 
+<body onload ="getFieldSelection(app,'initialconsultation',null,setConsultType)"> 
 
 <script>
 var km=getCookie('kms');
@@ -126,33 +87,27 @@ $('#Kilometers').val(km);
             
             
             <a href="forms.html" rel="external" data-role="button" data-inline="true" data-icon="back">Cancel</a>
-            <a href="#" rel="external" onClick="convertKilometers(); fixName(); putFact(app,'consultation','forms.html');" data-role="button" data-inline="true" data-theme="b" data-icon="check">Submit</a>
+            <a href="#" rel="external" onClick=" fixName(); putFact(app,'initialconsultation','forms.html');" data-role="button" data-inline="true" data-theme="b" data-icon="check">Submit</a>
 
             <br/>
             
-            <label for="consultant">Consultant:</label>
+            <label for="consultant" class ="ui-input-text">Consultant</label>
             <select id ="consultant" name ="consultant" >
                 <option value="1">Followup face to face Consult</option>
                 <option value="2">Initial face to face Consult</option>
             </select> 
-            <div id ="ConsultTypeSection">
-            <label for="ConsultType">Consult ConsultType:</label>
-            	<select id ="ConsultType" name ="ConsultType" >
-                	<option value="1">Followup face to face Consult</option>
-                	<option value="2">Initial face to face Consult</option>
-            	</select> 
-		</div>
+          
 		<div id="WasScheduled">
-		<label for="Scheduled">Was Scheduled:</label>
+		<label for="Scheduled" class ="ui-input-text">Was Scheduled</label>
             <select id ="Scheduled" name ="Scheduled" >
                 <option value="1">Scheduled</option>
                 <option value="2">Not Scheduled</option>
             </select> 
             </div>
-            <label for="RequestDate" class ="ui-input-text">Date:</label>
+            <label for="RequestDate" class ="ui-input-text">Date</label>
             <input name="RequestDate" id="RequestDate" ConsultType="text" class="date">
             <div id="providerName">
-            <label for="RequestPhysician" class ="ui-input-text">Provider Name:</label>
+            <label for="RequestPhysician" class ="ui-input-text">Provider Name</label>
 			<input type="text" id ="RequestPhysician" name ="RequestPhysician"  
 			onkeypress="if(this.value.match(/[&=]/)) this.value=this.value.replace(/[&=]/g,''); "
 			onkeyup   ="if(this.value.match(/[&=]/)) this.value=this.value.replace(/[&=]/g,''); "/>
@@ -162,7 +117,7 @@ $('#Kilometers').val(km);
             </select> 
 			</div>
 			<div id="ProviderType">
-            <label for="ProviderType" class ="ui-input-text">Provider Type:</label>
+            <label for="ProviderType" class ="ui-input-text">Referral Type</label>
             <select id ="ProviderType" name ="ProviderType" >
                 <option value="1">Nurse</option>
                 <option value="2">Physician</option>
@@ -210,57 +165,16 @@ $('#Kilometers').val(km);
                 <option value="2">0</option>
             </select> 
             
-		<div id="presentSection">
-            	<label for="PhysicianPresentName" class ="ui-input-text">Physician</label>
-            	<input type="text" id ="PhysicianPresentName" name ="PhysicianPresentName" />
-            
-            	<label for="PhysicianPresent" class ="ui-input-text">Physician Present</label>
-				
-            	<input type="checkbox" id ="PhysicianPresent" name ="PhysicianPresent" value="1" />
-				
-				<label for="AlliedHealthPresent" class ="ui-input-text">Allied Health Present</label>
-				
-            	<input type="checkbox" id ="AlliedHealthPresent" name ="AlliedHealthPresent" value="1" />
-				
-				<label for="RNRPNPresent" class ="ui-input-text">RN/RPN Present</label>
-				
-            	<input type="checkbox" id ="RNRPNPresent" name ="RNRPNPresent" value="1" />
+		
+		
+           
             </div>
-		<div id="consultLocationSection">
-            	<label for="ConsultLocation" class ="ui-input-text">Consult Location</label>
-            	<select id ="ConsultLocation" name ="ConsultLocation" >
-                	<option value="1">Home</option>
-                	<option value="2">FHT</option>
-            	</select>
-		</div>
-            <div id="hoursSection">
-            	<label for="HoursOfCare" class ="ui-input-text">Hours of Care</label>
-            	<select id ="HoursOfCare" name ="HoursOfCare" >
-                	<option value="1">0.5</option>
-                	<option value="2">0.75</option>
-            	</select>
-
-			 <label for="Kilometers" class ="ui-input-text">Kilometers</label>
-			 <input type="text" id ="Kilometers" name ="Kilometers" 
-			 onkeypress="if(this.value.match(/[^.0-9]/)) this.value=this.value.replace(/[^.0-9]/g,'') "
-			 onkeyup   ="if(this.value.match(/[^.0-9]/)) this.value=this.value.replace(/[^.0-9]/g,'')  " 
-			 />
-            	
-				
-				
-				<label for="TravelTime" class ="ui-input-text">Travel Time</label>
-            	<select id ="TravelTime" name ="TravelTime" >
-                	<option value="1">0.5</option>
-                	<option value="2">0.75</option>
-            	</select> 
-		</div>
-            </div>
-            <label for="notes" class ="ui-input-text">Notes:</label>
+            <label for="notes" class ="ui-input-text">Notes</label>
             <textarea name="notes" id="notes"> </textarea>
             <br/>
 
             <a href="forms.html" rel="external" data-role="button" data-inline="true" data-icon="back">Cancel</a>
-            <a href="#" rel="external" onClick="convertKilometers(); fixName(); putFact(app,'consultation','forms.html')" data-role="button" data-inline="true" data-theme="b" data-icon="check">Submit</a>  
+            <a href="#" rel="external" onClick="fixName(); putFact(app,'initialconsultation','forms.html')" data-role="button" data-inline="true" data-theme="b" data-icon="check">Submit</a>  
         </form>
         <!-- Form ENd -->
     
