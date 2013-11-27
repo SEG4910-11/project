@@ -112,7 +112,8 @@ function convertJSONtoSelect(thisDom, data, domId)
     if(isJSONString(data)){
 		thisDom.children().remove();
         var json = JSON.parse(data);
-		
+		if(json.length<9)
+		{
         for(i=0;i<json.length;i++)
         {
 			var id= json[i].id;
@@ -125,8 +126,27 @@ function convertJSONtoSelect(thisDom, data, domId)
 		}
 		
 		thisDom.append('<tr><td></td><td><input id="'+domId+'" placeholder="Add an option..."  style="width: 300px; margin-left:20px;"></td></tr>');
-		thisDom.append('<tr><td></td><td><a href="#" rel="external" onClick="putLookup(\x27'+app+'\x27,\x27'+domId+'\x27,\x27educationFormDesign.html\x27)" data-role="button" data-inline="true" style="margin-left:20px;">Add</a><a href="#" rel="external" onClick="editLookup(\x27'+app+'\x27,\x27'+domId+'\x27,\x27educationFormDesign.html\x27)" data-role="button" data-inline="true" ">Edit</a></td></tr>');
-		
+		thisDom.append('<tr><td></td><td><a href="#" rel="external" onClick="putLookup(\x27'+app+'\x27,\x27'+domId+'\x27,\x27educationFormDesign.html\x27)" data-role="button" data-inline="true" style="margin-left:20px;">Add</a><a href="#" rel="external" onClick="editLookup(\x27'+app+'\x27,\x27'+domId+'\x27,\x27educationFormDesign.html\x27)" data-role="button" data-inline="true" ">Save</a></td></tr>');
+		}
+		else
+		{
+			
+			for(i=0;i<json.length;i++)
+        {
+			var id= json[i].id;
+			var label= json[i].label;
+			var selected= json[i].selected;
+            var formName= 'educationFormDesign.html';
+			
+		    thisDom.append('<tr><td><a href="#" rel="external" onClick="deleteRow(\x27'+app+'\x27,\x27'+domId+'\x27,'+id+',\x27educationFormDesign.html\x27)" data-role="button" data-inline="true" data-icon="delete" data-iconpos="notext"></a> <a href="#" rel="external" onClick="" data-role="button" data-inline="true" data-icon="arrow-u" data-iconpos="notext"></a> <a href="#" rel="external" onClick="" data-role="button" data-inline="true" data-icon="arrow-d" data-iconpos="notext"></a></td> <td><input id="'+id+'" class="'+domId+'" value="'+label+'" style="width: 300px;"></td></tr>');
+		   
+		}
+		var containerID= "container"+domId;
+		thisDom.wrap('<div id=\x27'+containerID+'\x27 class=\x27container\x27></div>');
+		var containerId= '#'+containerID;
+		$( containerId ).after('<a href="#" rel="external" onClick="putLookup(\x27'+app+'\x27,\x27'+domId+'\x27,\x27educationFormDesign.html\x27)" data-role="button" data-inline="true" style="margin-left:145px;">Add</a><a href="#" rel="external" onClick="editLookup(\x27'+app+'\x27,\x27'+domId+'\x27,\x27educationFormDesign.html\x27)" data-role="button" data-inline="true" ">Save</a>');
+		$( containerId ).after('<input id="'+domId+'" placeholder="Add an option..."  style="width: 300px; margin-left:145px;">');
+		}
     }
     else
     {
@@ -296,6 +316,7 @@ function putLookup(appName, lkupName, location)
 			if(option=="")
 			{
 				alert("The field's option is empty");
+				return "";
 			}
 			else
 			{
@@ -307,6 +328,7 @@ function putLookup(appName, lkupName, location)
 					success: function(data,status,xhr){
 					
 							window.location.reload();
+							return status;
 					},
 					error: function(xhr, status, e)
 					{
