@@ -1,26 +1,17 @@
 ///
 /// Turn this variable to false if just running UI
 var queryServer = true;
-var app = 'palis3';
 
+var app = 'palis3';
 var quickforms = 'QuickForms3'
 getChildrenScripts(app);
 
-function editSelectedField(factName){
-
-$('#fields').each(function() {
-  var id = $(this).children(":selected").attr("id");
-  getFieldSelection(app, factName, id, 'design.html');
-});
-
-
-}
 
 //This function retrieves the fields options from the database
 //It accepts the application name, form name, paramid, callback
 //Note: This function was reused from the client's code, some tweaking was done on it to make it work for our application
 function getFieldSelection(appName, factName,paramid, callback) {
-    /*$.ajaxSetup({ cache: false });
+    $.ajaxSetup({ cache: false });
     var updateid = null;
     if(isNull(paramid))
     {
@@ -41,12 +32,14 @@ function getFieldSelection(appName, factName,paramid, callback) {
 		$('.deleteButton').hide();
 	}
     // Find all children within the form that have the "select" tag
-    var len = $('table').length;
+    var len = $('Select').length;
     var count = 0;
-    $('table').each(function(){
+    $('Select').each(function(){
          var thisDom = $(this);
          var domId = thisDom.attr("id");
-		var url = '/'+quickforms+'/getFieldSelection.aspx?app='+appName+'&factTable='+factName+'&field='+domId+'&updateId='+updateid;
+		 var label=  $('label#' + domId).html();
+		 convertJSONtoSelect(thisDom,domId, label);
+		 /*var url = '/'+quickforms+'/getFieldSelection.aspx?app='+appName+'&factTable='+factName+'&field='+domId+'&updateId='+updateid;
          // Asynchronously get the fields from the controller 
 		  $.ajax({
                 type: 'GET',
@@ -80,84 +73,20 @@ function getFieldSelection(appName, factName,paramid, callback) {
 						$('form').trigger('create');    
 					}
                 }
-        });
+        }); */
          
-      }); */
-	  
-	  var url = '/'+quickforms+'/getFieldSelection.aspx?app='+appName+'&factTable='+factName+'&field='+paramid+'&updateId='+paramid;
-         // Asynchronously get the fields from the controller 
-		  $.ajax({
-                type: 'GET',
-                async: true,
-                cache: false,
-                timeout: 3000,
-                url: url,
-                data: {},
-                success: function(data,status,xhr){
-                    if(data != ""){
-						 
-							convertJSONtoSelect(data,paramid);
-						
-					}
-                },
-                error: function(data,status,xhr){
-                    console.log(e1+e2+e3);
-					   
-					}
-                }
-        );
-         
+      });
       
 }
 
 //This function is used to dynamically generate the edit mode of the design page of the form
-function convertJSONtoSelect(data, domId)
+function convertJSONtoSelect(thisDom, domId, label)
 {
     if(isJSONString(data)){
-		
+		thisDom.children().remove();
         var json = JSON.parse(data);
-		//If the list of fields is less than 9 fields display the fields without the scrolling box
-		if(json.length<9)
-		{
-			$('p').append('<table id=\x27'+domId+'\x27 ></table>');
-		//Go through each option of a specific field and display it in a text box with the delete, up and down buttons beside it
-        for(i=0;i<json.length;i++)
-        {
-			var id= json[i].id; //this variable is the id of the option
-			var label= json[i].label;// this variable is the label of the option
-			var selected= json[i].selected;
-            var formName= 'design.html';
-			
-		    $('table').append('<tr><td><a href="#" rel="external" onClick="deleteLkup(\x27'+app+'\x27,\x27'+domId+'\x27,'+id+',\x27design.html\x27)" data-role="button" data-inline="true" data-icon="delete" data-iconpos="notext"></a> <a href="#" rel="external" onClick="" data-role="button" data-inline="true" data-icon="arrow-u" data-iconpos="notext"></a> <a href="#" rel="external" onClick="" data-role="button" data-inline="true" data-icon="arrow-d" data-iconpos="notext"></a></td> <td><input id="'+id+'" class="'+domId+'" value="'+label+'" style="width: 300px; margin-left:20px;"></td></tr>');
-		   
-		}
-		//Display the new option textbox,add, and save buttons under the options of the field
-		$('table').append('<tr><td></td><td><input id="'+domId+'" placeholder="New option..."  style="width: 300px; margin-left:20px;"></td></tr>');
-		$('table').append('<tr><td></td><td><a href="#" rel="external" onClick="putLookup(\x27'+app+'\x27,\x27'+domId+'\x27,\x27design.html\x27)" data-role="button" data-inline="true" style="margin-left:20px;">Add</a><a href="#" rel="external" onClick="editLookup(\x27'+app+'\x27,\x27'+domId+'\x27,\x27design.html\x27)" data-role="button" data-inline="true" ">Save</a></td></tr>');
-		}
 		
-		//otherwise display the options in a scrolling box
-		else
-		{
-			
-			for(i=0;i<json.length;i++)
-        {
-			var id= json[i].id;
-			var label= json[i].label;
-			var selected= json[i].selected;
-            var formName= 'design.html';
-			
-		    thisDom.append('<tr><td><a href="#" rel="external" onClick="deleteLkup(\x27'+app+'\x27,\x27'+domId+'\x27,'+id+',\x27design.html\x27)" data-role="button" data-inline="true" data-icon="delete" data-iconpos="notext"></a> <a href="#" rel="external" onClick="" data-role="button" data-inline="true" data-icon="arrow-u" data-iconpos="notext"></a> <a href="#" rel="external" onClick="" data-role="button" data-inline="true" data-icon="arrow-d" data-iconpos="notext"></a></td> <td><input id="'+id+'" class="'+domId+'" value="'+label+'" style="width: 300px;"></td></tr>');
-		   
-		}
-		//Put the fields in a scrolling box
-		var containerID= "container"+domId;
-		thisDom.wrap('<div id=\x27'+containerID+'\x27 class=\x27container\x27></div>');
-		var containerId= '#'+containerID;
-		//Display the new option textbox, add, and save buttons outside the scrolling box
-		$( containerId ).after('<a href="#" rel="external" onClick="putLookup(\x27'+app+'\x27,\x27'+domId+'\x27,\x27design.html\x27)" data-role="button" data-inline="true" style="margin-left:145px;">Add</a><a href="#" rel="external" onClick="editLookup(\x27'+app+'\x27,\x27'+domId+'\x27,\x27design.html\x27)" data-role="button" data-inline="true" ">Save</a>');
-		$( containerId ).after('<input id="'+domId+'" placeholder="New option..."  style="width: 300px; margin-left:145px;">');
-		}
+		thisDom.append('<option id='+domId+' value ="1">'+label+'</option>');
     }
     else
     {
