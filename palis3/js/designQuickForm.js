@@ -16,6 +16,8 @@ $('#fields').each(function() {
 
 }
 
+
+
 //This function retrieves the fields options from the database
 //It accepts the application name, form name, paramid, callback
 //Note: This function was reused from the client's code, some tweaking was done on it to make it work for our application
