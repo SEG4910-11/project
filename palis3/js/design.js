@@ -2,8 +2,16 @@ var app = 'palis3';
 var quickforms = 'QuickForms3';
 var labelID;
 
+$(document).ready(function(){
 
-//This function reload the page to be edited adding the edit button beside each select field
+ var username = getCookie('username');
+    if(username == 'palisadmin')
+    {
+        $('.buttons').append('<a href="#" rel="external" onClick="design()" data-role="button" data-inline="true" data-icon="gear">Design</a>');
+    }
+});
+
+//This function reload the form to be edited adding the edit button beside each select field
 function design(){
 
 	//Hide the top and bottom buttons that appear on the original form 
@@ -27,7 +35,7 @@ function design(){
 			}
 		};		
 		//Add the edit button (pencil icon) beside each select field
-	    thisDom.before('<a href="#" rel="external" id="'+id+'" onclick="editOption('+id+')" data-role="button" data-inline="true" data-corners="true" data-shadow="true" data-iconshadow="true" data-theme="c" class="ui-btn ui-btn-inline ui-shadow ui-btn-corner-all ui-btn-hover-c ui-btn-down-c"><span class="button-ui"><span class="ui-icon ui-icon-pencil ui-icon-shadow"></span></span></a>')
+	    thisDom.before('<a href="#" rel="external" id="'+id+'" onclick="editOption('+id+')" data-role="button" data-inline="true" data-corners="true" data-shadow="true" data-iconshadow="true" data-theme="c" class="ui-btn ui-btn-inline ui-shadow ui-btn-corner-all ui-btn-hover-c ui-btn-down-c"><span class="button-ui"><span class="ui-icon ui-icon-gear ui-icon-shadow"></span></span></a>')
 		});
 		
 		$('body').wrapInner('<p></p>');
@@ -117,13 +125,13 @@ function displayEditingPage(data, domId)
 		    }
 			else{
 			
-				$('table').append('<tr><td><a href="#" rel="external" onClick="deleteLkup(\x27'+app+'\x27,\x27'+domId+'\x27,'+id+',\x27\x27)" data-role="button" data-inline="true" data-corners="true" data-shadow="true" data-iconshadow="true" data-theme="c" class="ui-btn ui-btn-inline ui-shadow ui-btn-corner-all ui-btn-hover-c ui-btn-down-c"><span class="button-ui"><span class="ui-icon ui-icon-delete ui-icon-shadow"></span></span></a> <a href="#" rel="external" onClick="" data-role="button" data-inline="true" data-icon="arrow-d" data-iconpos="notext"></a></td> <td><input id="'+id+'" class="'+domId+'" value="'+label+'" style="width: 300px; margin-left:20px;"></td></tr>');
 		   
+				$('table').append('<tr><td><a href="#" rel="external" onClick="deleteLkup(\x27'+app+'\x27,\x27'+domId+'\x27,'+id+',\x27\x27)" data-role="button" data-inline="true" data-corners="true" data-shadow="true" data-iconshadow="true" data-theme="c" class="ui-btn ui-btn-inline ui-shadow ui-btn-corner-all ui-btn-hover-c ui-btn-down-c"><span class="button-ui"><span class="ui-icon ui-icon-delete ui-icon-shadow"></span></span></a> <a href="#" rel="external" onClick="" data-role="button" data-inline="true" data-icon="arrow-d" data-iconpos="notext"></a></td> <td><input id="'+id+'" class="'+domId+'" value="'+label+'" style="width: 300px; margin-left:20px;"></td></tr>');
 			}
 		}
 		//Display the new option textbox,add, and save buttons under the options of the field
-		$('table').append('<tr><td></td><td><input id="'+domId+'" placeholder="New option..."  style="width: 300px; margin-left:20px;"></td></tr>');
-		$('table').append('<tr><td></td><td><a href="#" rel="external" onClick="putLookup(\x27'+app+'\x27,\x27'+domId+'\x27,\x27design.html\x27)" data-role="button" data-inline="true" style="margin-left:20px;">Add</a><a href="#" rel="external" onClick="editLookup(\x27'+app+'\x27,\x27'+domId+'\x27,\x27design.html\x27)" data-role="button" data-inline="true" ">Save</a></td></tr>');
+		$('table').append('<tr><td><a href="#" rel="external" onClick="putLookup(\x27'+app+'\x27,\x27'+domId+'\x27,\x27design.html\x27)" data-role="button" data-inline="true"data-corners="true" data-shadow="true" data-iconshadow="true" data-theme="c" class="ui-btn ui-btn-inline ui-shadow ui-btn-corner-all ui-btn-hover-c ui-btn-down-c"><span class="button-ui"><span class="ui-icon ui-icon-add ui-icon-shadow"></span></span></a></td><td><input id="'+domId+'" placeholder="New option..."  style="width: 300px; margin-left:20px;"></td></tr>');
+		$('table').append('<tr><td></td><td><a href="#" rel="external" onClick="editLookup(\x27'+app+'\x27,\x27'+domId+'\x27,\x27design.html\x27)"  data-role="button" data-inline="true" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="c" class="ui-btn ui-btn-inline ui-shadow ui-btn-corner-all ui-btn-hover-c ui-btn-down-c"><span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text">Save</span></span></a></td></tr>');
 		
 		//}
 		
