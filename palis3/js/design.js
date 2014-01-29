@@ -56,7 +56,7 @@ function editOption(domId){
 		}
 	});
 	
-	getFieldOptions(app, 'education', domId, location);
+	getFieldOptions(app, 'education', labelID, location);
 	
 
 }
@@ -66,8 +66,8 @@ function editOption(domId){
 function getFieldOptions(appName, factName,paramid, callback) {
    
 	  
-	  var domId= paramid.id;
-	  var url = '/'+quickforms+'/getFieldSelection.aspx?app='+appName+'&factTable='+factName+'&field='+domId+'&updateId='+domId;
+	  
+	  var url = '/'+quickforms+'/getFieldSelection.aspx?app='+appName+'&factTable='+factName+'&field='+paramid+'&updateId='+paramid;
          // Asynchronously get the fields from the controller 
 		  $.ajax({
                 type: 'GET',
@@ -111,8 +111,15 @@ function displayEditingPage(data, domId)
 			var selected= json[i].selected;
             var formName= 'design.html';
 			
-		    $('table').append('<tr><td><a href="#" rel="external" onClick="deleteLkup(\x27'+app+'\x27,\x27'+domId+'\x27,'+id+',\x27design.html\x27)" data-role="button" data-inline="true" data-corners="true" data-shadow="true" data-iconshadow="true" data-theme="c" class="ui-btn ui-btn-inline ui-shadow ui-btn-corner-all ui-btn-hover-c ui-btn-down-c"><span class="button-ui"><span class="ui-icon ui-icon-delete ui-icon-shadow"></span></span></a> <a href="#" rel="external" onClick="" data-role="button" data-inline="true" data-icon="arrow-d" data-iconpos="notext"></a></td> <td><input id="'+id+'" class="'+domId+'" value="'+label+'" style="width: 300px; margin-left:20px;"></td></tr>');
+			if(i==0){
+			
+				$('table').append('<tr><td><a href="#" rel="external" onClick="" data-role="button" data-inline="true" data-icon="arrow-d" data-iconpos="notext"></a></td> <td><input id="'+id+'" class="'+domId+'" value="'+label+'" style="width: 300px; margin-left:20px;"></td></tr>');
+		    }
+			else{
+			
+				$('table').append('<tr><td><a href="#" rel="external" onClick="deleteLkup(\x27'+app+'\x27,\x27'+domId+'\x27,'+id+',\x27\x27)" data-role="button" data-inline="true" data-corners="true" data-shadow="true" data-iconshadow="true" data-theme="c" class="ui-btn ui-btn-inline ui-shadow ui-btn-corner-all ui-btn-hover-c ui-btn-down-c"><span class="button-ui"><span class="ui-icon ui-icon-delete ui-icon-shadow"></span></span></a> <a href="#" rel="external" onClick="" data-role="button" data-inline="true" data-icon="arrow-d" data-iconpos="notext"></a></td> <td><input id="'+id+'" class="'+domId+'" value="'+label+'" style="width: 300px; margin-left:20px;"></td></tr>');
 		   
+			}
 		}
 		//Display the new option textbox,add, and save buttons under the options of the field
 		$('table').append('<tr><td></td><td><input id="'+domId+'" placeholder="New option..."  style="width: 300px; margin-left:20px;"></td></tr>');
@@ -160,3 +167,39 @@ function designPage(){
 	
 }
 
+//This function is used to make an ajax request to the controller in order to delete an option to a specific field
+//The function accepts the application name, lookup table name, and the html page name
+function deleteLkup(appName,lkup,id,redirect)
+{
+		//make an ajax request and delete the option with the given id
+		 $.ajax({
+					type: 'POST',
+					url: '/'+quickforms+'/deleteLkup.aspx',
+					data: {app:appName,tbl: lkup, row : id},
+					success: function(data,status,xhr){
+					
+							refreshTable(lkup);
+					},
+					error: function(xhr, status, e)
+					{
+						alert('Sorry, Palis seems to be having some technical difficulties at the moment. Please contact lpeyton@uottawa.ca to resolve the issue.');
+						if(queryServer)
+						{
+							window.alert("Row not saved, could not connect to server: "+e);
+						}
+						else
+						{
+							window.redirect.reload();
+						}
+					}
+					});
+}
+
+//This function refresh the options field on display after deleting one of them
+function refreshTable(domId){
+
+//Remove the current table
+$('table').remove();
+//Append the new table with the new options list
+getFieldOptions(app, 'education', domId, location);
+}
