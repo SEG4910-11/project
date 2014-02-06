@@ -93,7 +93,7 @@ public static String getSelectionList(String app,String tbl,String fact,String u
     {
 
         con.Open();
-        using (SqlCommand command = new SqlCommand("SELECT * FROM " + tbl + " where "+tbl+".flag=0 ORDER BY SORTORDER", con))
+        using (SqlCommand command = new SqlCommand("SELECT * FROM " + tbl + " where "+tbl+".flag=0 ORDER BY SortOrder", con))
         using (SqlDataReader reader = command.ExecuteReader())
         {
             while (reader.Read())
@@ -334,14 +334,34 @@ public static int putLkup(string app, string tbl, string label)
 
     String lkupTable = "lkup_" + tbl;
     int id = -1;
+    int sortOrder = 0;
 
-
-    String sql = "INSERT INTO " + lkupTable + " VALUES( '" + label + "', 0,0)";
+    String sql = "select max(SortOrder) From " + lkupTable + " where flag=0";
     using (SqlConnection con = new SqlConnection(getConnectionString(app)))
     {
 
         con.Open();
-        using (SqlCommand command = new SqlCommand(sql))
+
+        SqlCommand command = new SqlCommand(sql, con);
+        SqlDataReader reader = command.ExecuteReader();
+        {
+
+
+            while (reader.Read())
+            {
+                sortOrder = reader.GetInt32(0) + 1;
+            }
+
+        }
+
+    }
+
+    String sql1 = "INSERT INTO " + lkupTable + " VALUES( '" + label + "', "+sortOrder+",0)";
+    using (SqlConnection con = new SqlConnection(getConnectionString(app)))
+    {
+
+        con.Open();
+        using (SqlCommand command = new SqlCommand(sql1))
         {
             command.Connection = con;
             id = (int)command.ExecuteScalar();
@@ -397,6 +417,59 @@ public static int deleteLkup(string app, string tbl, string rowID)
     return id;
 }
 
+//This method returns the sortOrder of a specific row in a lkup table
+public static int getSortOrder(String app, String tbl, String id)
+{
+    String lkupTable = "lkup_" + tbl;
+    Int32 json= 0;
+   
+
+    String sql = "Select SortOrder from " + lkupTable + " where [key]= "+ id;
+    using (SqlConnection con = new SqlConnection(getConnectionString(app)))
+    {
+
+        con.Open();
+
+        SqlCommand command = new SqlCommand(sql, con);
+        SqlDataReader reader = command.ExecuteReader();
+        {
+
+
+            while (reader.Read())
+            {
+                json = reader.GetInt32(0);
+            }
+
+        }
+
+    }
+
+    return json;
+}
+
+//this method is used to update the sortOrder of a specific row in a lkup table
+public static int updateSortOrder(string app, string tbl, string sortOrder, string rowId)
+{
+
+    String lkupTable = "lkup_" + tbl;
+    int id = -1;
+
+
+    String sql = "Update " + lkupTable + " set SortOrder='"+sortOrder+"' where [key]='"+rowId+"'";
+    using (SqlConnection con = new SqlConnection(getConnectionString(app)))
+    {
+
+        con.Open();
+        using (SqlCommand command = new SqlCommand(sql))
+        {
+            command.Connection = con;
+            id = (int)command.ExecuteNonQuery();
+        }
+    }
+
+    return id;
+}
+
 private static String formatType(string col, string val)
 {
 
@@ -412,5 +485,7 @@ private static String formatType(string col, string val)
     return buf;
 }
 }
+
+
 }
 

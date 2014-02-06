@@ -78,6 +78,9 @@
     </Content>
     <Content Include="deleteLkup.aspx" />
     <Content Include="editLkup.aspx" />
+    <Content Include="getSortOrder.aspx" />
+    <Content Include="updateSortOrder.aspx" />
+    <Content Include="WebForm1.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="executeQuery.aspx.cs">
@@ -144,6 +147,27 @@
     </Compile>
     <Compile Include="editLkup.aspx.designer.cs">
       <DependentUpon>editLkup.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="getSortOrder.aspx.cs">
+      <DependentUpon>getSortOrder.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="getSortOrder.aspx.designer.cs">
+      <DependentUpon>getSortOrder.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="updateSortOrder.aspx.cs">
+      <DependentUpon>updateSortOrder.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="updateSortOrder.aspx.designer.cs">
+      <DependentUpon>updateSortOrder.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebForm1.aspx.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebForm1.aspx.designer.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
