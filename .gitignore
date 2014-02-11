@@ -1,0 +1,31 @@
+//node modules
+palis3/Default.aspx
+palis3/LoginMaster.master
+palis3/Reports.html
+palis3/ReportsMonthly.html
+palis3/ReportsSummary.html
+palis3/ReportsSummary2.html
+//palis3/design.html 
+palis3/education.html
+palis3/educationForm.html
+palis3/index.html
+palis3/logout.html
+palis3/non-casebasedForm.html
+palis3/patients.html
+palis3/problem.html
+palis3/roundsForm.html
+palis3/teamMember.html
+palis3/teams.html
+palis3/web - Copy of Orig.config
+palis3/web.config
+
+palis3/Images
+palis3/META-INF
+palis3/Secure
+palis3/WEB-INF
+palis3/css
+palis3/patient
+palis3/db
+
+QuickForms3/
+Documents/
