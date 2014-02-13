@@ -27,8 +27,10 @@ palis3/css
 palis3/patient
 palis3/db
 
-QuickForms3/
+
+//QuickForms3/
 Documents/
+/*
 Gruntfile.js
 README.md
-package.json
+package.json*/
