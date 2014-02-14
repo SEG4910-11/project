@@ -36,7 +36,7 @@ function design(){
 			
 			if(LabelID==id)
 			{
-				thisLabel.append('<a href="#" rel="external" id="'+id+'" onclick="editOption('+id+')" data-role="button" data-inline="true" data-corners="true" data-shadow="true" data-iconshadow="true" data-theme="c" class="ui-btn ui-btn-inline ui-shadow ui-btn-corner-all ui-btn-hover-c ui-btn-down-c"><span class="button-ui"><span class="ui-icon ui-icon-gear ui-icon-shadow"></span></span></a>')
+				thisLabel.append('<a href="#" rel="external" id="'+id+'" onclick="editOption('+id+')" data-role="button" data-inline="true" data-corners="true" data-shadow="true" data-iconshadow="true" data-theme="c" class="ui-btn ui-btn-inline ui-shadow ui-btn-corner-all ui-btn-hover-c ui-btn-down-c"><span class="button-ui"><span class="ui-icon ui-icon-gear ui-icon-shadow"></span></span></a> <button onclick="download(\x27education\x27 , '+id+')">Download</button> <button onclick="download()">Upload</button>');
 			}
 				
 		   });
@@ -419,6 +419,68 @@ function updateSortOrder(lkup,rowID,newSortOrder){
 						
 }
 
+//This function download the lkup-table into csv file
+function download(factName, id){
+
+var domId= id.id;
+
+//Get the options (id and label) from the database
+var url = '/'+quickforms+'/getFieldSelection.aspx?app='+app+'&factTable='+factName+'&field='+domId+'&updateId='+domId;
+         // Asynchronously get the fields from the controller 
+		  $.ajax({
+                type: 'GET',
+                async: true,
+                cache: false,
+                timeout: 3000,
+                url: url,
+                data: {},
+                success: function(data,status,xhr){
+                    if(data != ""){
+						 //convert the date to json string
+						var json= JSON.parse(data);
+						//call convertToCSV function to convert json string to csv string
+						var csvString =ConvertToCSV(json);
+					
+						//download the csv string into csv file in the browser
+						$('<a></a>')
+							.attr('id','downloadFile')
+							.attr('href','data:text/csv;charset=utf8,' + encodeURIComponent(csvString))
+							.attr('download','filename.csv')
+							.appendTo('body');
+
+                        $('#downloadFile').ready(function() {
+                        $('#downloadFile').get(0).click();
+                        });
+						
+						
+						
+					}
+                },
+                error: function(data,status,xhr){
+                    console.log(e1+e2+e3);
+					   
+					}
+                }
+        );
+}
+
+function ConvertToCSV(objArray) {
+            var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
+            var str = '';
+
+            for (var i = 0; i < array.length; i++) {
+                var line = '';
+                for (var index in array[i]) {
+                    if (line != '') line += ','
+
+                    line += array[i][index];
+                }
+
+                str += line + '\r\n';
+            }
+
+            return str;
+        }
 
 
 //This function refresh the options field on display after editing one of them
