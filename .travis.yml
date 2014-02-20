@@ -1,7 +1,8 @@
 # language: node_js
 # node_js:
 #  - 0.10 
+
 #smita
-#language: node_js
-#node_js:
- # - 0.10 
+language: node_js
+node_js:
+ - 0.10 
