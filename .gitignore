@@ -19,9 +19,10 @@ palis3/teams.html
 palis3/web - Copy of Orig.config
 palis3/web.config*/
 
+/*
 palis3/
 Documents/
-QuickForms3/
+QuickForms3/*/
 
 /*
 palis3/Images
@@ -33,10 +34,3 @@ palis3/patient
 palis3/db
 */
 
-//QuickForms3/
-//Documents/
-
-Gruntfile.js
-README.md
-package.json
-//palis3/test
