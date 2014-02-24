@@ -1,81 +1,52 @@
 
-<!DOCTYPE html> 
-<html> 
-	<head> 
-	<title>My Resident</title> 
-	<meta name="viewport" content="width=device-width, initial-scale=1"> 
-	<link rel="stylesheet" href="css/login.css" />
-	<script src="js/jquery-1.7.1.min.js"></script>
-	<script src="js/quickforms.js"></script>
-	<script src="js/md5.js"></script>
-	<script type= "text/javascript">
-		$(function(){
-				if(getParameterByName("incorrect")== "true")
-				{
-						$('#loginfrm').prepend("<p style='color:red'>Incorrect username password combination</p>");
-				}
-		});
-		function logIn()
-		{
-			if(!queryServer)
-			{
-				setCookie('username','palisadmin',1);
-				setCookie('userid','3',1);
-				window.location = 'education.html';
-			}
-			var md5edPass = md5($('#j_password').val());
-			var username = $('#j_username').val();
-			getResultSet(app,'getUserByPassword',"UserName:'"+username+"';Password:'"+md5edPass+"'",function(data){
-				if(isJSONString(data) && data.length > 2)
-				{
-					var json=JSON.parse(data);
-					setCookie('userid',json[0].TeammemberKey,1);
-					setCookie('username',username,1);
-					window.location = 'education.html';
-				}
-				else
-				{
-					window.location = 'index.html?incorrect=true';
-				}
-			});
-		}
-$(document).keypress(function(e) {
-    if(e.which == 13) {
-        logIn();
-    }
-});
-	</script>
-</head> 
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<html class = "ui-mobile-rendering">
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">	
+	<link rel="stylesheet" href="/quickforms/css/quickforms/quickforms.css" />
+	<script src = "/quickforms/js/require.min.js" ></script>
+</head>
 <body>
-
-
-<div data-role="page">
-
+<div data-role="page" id="loadQuickformsTemplate">
+	<script type="text/javascript">
+	require(['/quickforms/js/quickforms.js'],function(){
+			quickforms.registerReadyFunction(function()
+			{
+				require(['dom/login'],// This is the only module needed
+					function(){
+						quickforms.setupLogin();
+					});
+			});
+		});
+	</script>
+	
 	<div class ="container">	
 			
-			<p style="font-size:large">PAL-IS 3 Login</p>
+			<p id="app" style="font-size:x-large">Palis3</p>
 			<hr />
-			<p style="color:gray">Version 0.4 (build 1004)</p>
-            <form id="loginfrm" >
+			<p id="versioning" style="color:gray"></p>
+            <form id="loginfrm">
 				<table border = "0" cellpadding="2"><tr>
-                <td><label for="j_username">Username:</label></td>
-                <td><input type="text" name="j_username" id="j_username" value=""  /></td>
+                <td><label for="username">Username:</label></td>
+                <td><input type="text" name="username" id="username" value=""  /></td>
 				</tr><tr>
-                <td><label for="j_password">Password:</label></td>
-                <td><input type="password" name="j_password" id="j_password" value="" /></td>
+                <td><label for="password">Password:</label></td>
+                <td><input type="password" name="password" id="password" value="" /></td>
 				</tr><tr><td></td>
-                <td><input type="button" onclick = "logIn()" value="Log In"/></td>
+				<td><input id="rememberMe" type="checkbox" name="rememberMe" />
+				<label for="rememberMe">Remember me next time.</label></td></tr>
+				<tr><td></td>
+                <td><input type="button" onclick = "quickforms.currentLogin.logIn()" value="Log In" href="education.html"/></td>
 				</tr></table>
             </form>	
 			<hr />
-			<a href ="teams.html">Forgot your password?</a>
+			<a href ="mailto:quickforms@gmail.com?Subject=Password%20reset">Forgot your password?</a>
 	</div>
 	<div align="center">
-	Copyright &copy; 2013 PAL-IS Team Portal 
+	Copyright &copy; 2014 Palis3
 	</div>
-	<div data-role="footer">
-	   <h4></h4>
-	</div>
+	
 
-</div><!-- /page --></body>
+</div>
+</body>
 </html>

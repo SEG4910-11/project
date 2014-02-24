@@ -1,72 +1,25 @@
-<!DOCTYPE html> 
-<html> 
-    <head> 
-    <title id="title">Palis - </title> 
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" href="css/jquery-ui.css" />
-    <link rel="stylesheet" href="css/jquery.mobile-1.1.1.min.css" />
-    <link rel="stylesheet" href="css/form.css" />
-	<link rel="stylesheet" href="css/design.css" />
-    
-    <script src="js/jquery-1.7.1.min.js"></script>
-    <script src ="js/jquery-ui-1.10.0.custom.min.js"></script>
-    <script src ="js/quickforms.js"></script>
-    <script src="js/education.js"></script>
-	<script src="js/design.js"></script>
-    <script src="js/jquery.mobile-1.1.1.min.js"></script>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<html class = "ui-mobile-rendering">
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">	
+	<link rel="stylesheet" href="/quickforms/css/quickforms/quickforms.css" />
+	<script src = "/quickforms/js/require.min.js" ></script>
+</head>
+<body>
+<div data-role="page" id="loadQuickformsTemplate">
 	<script type="text/javascript">
-	$(function(){
-		getFieldSelection(app,'education',null,function(){
-			addParticipants();
+	require(['/quickforms/js/quickforms.js'],function(){
+			quickforms.registerReadyFunction(function()
+			{
+				require(['dom/form/select','palis3/js/design'],// This is the only module needed
+					function(){
+					quickforms.parseForm( { formId:'mainForm', fact:'education'	});
+						
+					});
+			});
 		});
-		
-		$('#MedPart,#AlliedPart,#NursePart,#MixedPart').live("keyup" ,function()
-		{
-			$('#participantsError').css('color','red');
-			if(validateNumber($(this)))
-			{
-				$('#participantsError').html("");
-			}
-			else
-			{
-				$('#participantsError').html("Please enter numbers only");
-			}
-		});
-		
-	});
-	function validateNumber(dom)
-	{
-		if(is_int(dom.val())==false)
-		{
-			return false;
-		}
-		else
-		{	
-			return true;
-		}
-	}
-	function putEducation()
-	{
-		var num=0;
-		$('#MedPart,#AlliedPart,#NursePart,#MixedPart').each(function(i,dom){
-			if(validateNumber($(dom)))
-			{
-				num++;
-			}
-			else
-			{
-				$('#participantsError').attr('tabindex',1);
-				$('#participantsError').focus();
-			}
-		});
-		if(num==4)
-			putFact(app,'education','education.html');
-	}
-</script>
-    
-</head> 
-<body onload =""> 
+	</script>
 
 <!-- <div data-role="page"> -->
 
@@ -89,7 +42,7 @@
 			</div>
             <br/>
             
-            <label for="initiative" class ="ui-input-text">Initiative:</label> 
+            <label id="initLbl" for="initiative" class ="ui-input-text">Init:</label> 
             <select id ="initiative" name ="initiative" data-native-menu="false"></select>
             
             <label for="title" class ="ui-input-text">Title:</label>
@@ -104,13 +57,13 @@
             </select>
             
             <label for="area">Area:</label>
-            <select id ="area" name ="area" data-native-menu="false"></select>
+            <select id ="area" name ="area" data-native-menu="false"><option></option></select>
             
             <label for="EduHours">Education Hours:</label>
-            <select id ="EduHours" name ="EduHours" data-native-menu="true"></select>
+            <select id ="EduHours" name ="EduHours" data-native-menu="true"><option></option></select>
             
             <label for="TravelTime">Travel Time:</label>
-            <select id ="TravelTime" name ="TravelTime" data-native-menu="true"> </select>
+            <select id ="TravelTime" name ="TravelTime" data-native-menu="true"><option></option></select>
             
             <h3 id ="numParticipantsTitle">Number Of Participants:</h3><!-- Total Number of participants  auto updated -->
 			<div id="participantsError"></div>

@@ -3,7 +3,7 @@
 var queryServer = true;
 /// Turn this variable to false if just running UI
 ///
-var app = 'palis3';
+var app = 'PALIS3';
 var quickforms = 'QuickForms3'
 getChildrenScripts(app);
 
