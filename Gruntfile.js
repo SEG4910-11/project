@@ -4,7 +4,7 @@ module.exports = function(grunt) {
 
   grunt.initConfig({
     jshint: {
-      all: ['Gruntfile.js', 'testF1.html','testF2.html','testF3.html','testF4.html','testF5.html','testF6.html','testF7.html','testF8.html','testF9.html','testF10.html']
+      all: ['Gruntfile.js', 'Test1.html','Test2.html','Test3.html','Test4.html','Test5.html','Test6.html's]
     }
   });
 
