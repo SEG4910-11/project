@@ -66,8 +66,8 @@ require(['server/getMultiData', 'server/updateLookup'], function () {
         $('h3').before('<button onClick="designPage()" data-icon="back" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="c" class="ui-btn ui-btn-inline ui-shadow ui-btn-corner-all ui-btn-icon-left ui-btn-hover-c ui-btn-down-c" style="margin-left:20px; margin-top:10px;" ><span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text">Back</span><span class="ui-icon ui-icon-back ui-icon-shadow">&nbsp;</span></span></button>');
         // Start NK
         // add upload and download buttons
-        $('h3').before('<button onClick="click()" data-icon="arrow-u" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="c" class="ui-btn-up ui-btn-inline ui-shadow ui-btn-corner-all ui-btn-icon-left ui-btn-hover-c ui-btn-up-c" style="margin-left:20px; margin-top:10px;" ><span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text">Upload</span><span class="ui-icon ui-icon-arrow-u ui-icon-shadow">&nbsp;</span></span></button>');
-        $('h3').before('<button onClick="click()" data-icon="arrow-d" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="c" class="ui-btn-down ui-btn-inline ui-shadow ui-btn-corner-all ui-btn-icon-left ui-btn-hover-c ui-btn-down-c" style="margin-left:20px; margin-top:10px;" ><span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text">Download</span><span class="ui-icon ui-icon-arrow-d ui-icon-shadow">&nbsp;</span></span></button>');
+        $('h3').before('<button onClick="click()" data-icon="arrow-d" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="c" class="ui-btn-down ui-btn-inline ui-shadow ui-btn-corner-all ui-btn-icon-left ui-btn-hover-c ui-btn-down-c" style="margin-left:20px; margin-top:10px;" ><span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text">Upload</span><span class="ui-icon ui-icon-arrow-d ui-icon-shadow">&nbsp;</span></span></button>');
+        $('h3').before('<button onClick="click()" data-icon="arrow-u" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="c" class="ui-btn-up ui-btn-inline ui-shadow ui-btn-corner-all ui-btn-icon-left ui-btn-hover-c ui-btn-up-c" style="margin-left:20px; margin-top:10px;" ><span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text">Download</span><span class="ui-icon ui-icon-arrow-u ui-icon-shadow">&nbsp;</span></span></button>');
 
 
         $('.ui-btn-up').click(function (ev) {
@@ -78,7 +78,7 @@ require(['server/getMultiData', 'server/updateLookup'], function () {
 
         $('.ui-btn-down').click(function (ev) {
             var queryString = $('#educationForm').serialize();
-            document.location = 'http://localhost:8080/quickforms/templates/dom/uploadExample.html';
+            document.location = 'upload.html';
         })
         // end NK
 

@@ -1,0 +1,41 @@
+<!doctype html>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<html class="ui-mobile-rendering">
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">	
+	<link rel="stylesheet" href="/quickforms/css/quickforms/quickforms.css" />
+	<script src = "/quickforms/js/require.min.js" ></script>
+
+</head>
+<body>	
+<div data-role="page" id = "mynext">
+	<script type = "text/javascript">
+		require(['/quickforms/js/quickforms.js'],function(){
+			quickforms.registerReadyFunction(function()
+			{
+				require(['dom/navControl'],
+					function(){
+						quickforms.loadNav('nav.html','nav');
+					});
+			});
+		});
+	</script>
+	<div data-role="header" data-id="foo1" data-position="fixed"><h1>Header</h2></div>
+	<div data-role="content">
+		<div id = 'nav'></div>
+		<h3>Put Markup Here</h3>
+	</div>
+	<div data-role="footer"><h1>Footer</h1></div>
+</div>
+</body>
+</html>
+<!--
+The external navbar HTML below (nav.html)
+
+<div data-role="navbar">
+	<ul>
+            <li><a href="navExample.html" rel="external">Nav Example 1</a></li>
+            <li><a href="navExample2.html" rel="external">Nav Example 2</a></li>
+			<li><a href="../../../templates.html" rel="external">Back</a></li>
+	</ul>
+</div><!-- /navbar -->

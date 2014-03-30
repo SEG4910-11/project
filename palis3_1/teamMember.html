@@ -1,0 +1,75 @@
+<!DOCTYPE html> 
+<html> 
+    <head> 
+    <title id="title">Palis - </title> 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="js/jquery-1.7.1.min.js"></script>
+    <script src ="js/jquery-ui-1.10.0.custom.min.js"></script>
+    <script src ="js/md5.js"></script>
+    <link rel="stylesheet" href="css/jquery-ui.css" />
+    <link rel="stylesheet" href="css/form.css" />
+    <link rel="stylesheet" href="css/jquery.mobile-1.1.1.min.css" />
+    <script src ="js/quickforms.js"></script>
+    <script src ="js/jquery.mobile-1.1.1.min.js"></script>
+    <script src ="js/teamMember.js"></script>
+    <script src="js/education.js"></script>
+    
+</head> 
+<body > 
+
+<div data-role="page">
+        
+	<div data-role="header">
+		<h1 id="header">Palis - </h1>
+        <a href="logout.html" rel="external" data-role="button" data-inline="true" data-theme="c" class="ui-btn-right">Logout</a>
+	</div><!-- /header -->
+
+	<div data-role="content" data-inset="true">
+	
+	
+        <!-- FORM START -->
+        <form id ="mainForm" method="POST" action="putFact">
+            
+            
+            <a href="teams.html" rel="external" data-role="button" data-inline="true" data-icon="back">Back</a>
+            <a href="#" rel="external" onClick="putTeam()" data-role="button" data-inline="true" data-theme="b" data-icon="check">Submit</a>
+            <a id="deleteTeamButton" href="#" rel="external" onClick="removeTeam()" data-role="button" data-inline="true" data-theme="c" >Delete</a>
+            <br/>
+            
+            <label for="FirstName" class ="ui-input-text">First Name:</label>
+            <input type="text" id ="FirstName" name ="FirstName" />
+            
+            <label for="LastName" class ="ui-input-text">Last Name:</label>
+            <input id ="LastName" name ="LastName" type ="text"/>
+            
+            <label for="UserName" class ="ui-input-text">User Name:</label>
+            <input id ="UserName" name ="UserName" type ="text"/>
+            
+            <label for="Email" class ="ui-input-text">Email:</label>
+            <input name="Email" id="Email" type="text" >
+            
+            <label for="Password" class ="ui-input-text">Password:</label>
+            <input id ="Password" name ="Password" type ="password"/>
+            
+            <label for="Password" class ="ui-input-text">Confirm Password:</label>
+            <input id ="user_pass_confirm" name ="Password" type ="password"/>
+            
+            <br/>
+
+            <a href="teams.html" rel="external" data-role="button" data-inline="true" data-icon="back">Back</a>
+            <a href="#" rel="external" onClick="putTeam()" data-role="button" data-inline="true" data-theme="b" data-icon="check">Submit</a>  
+        </form>
+        <!-- Form ENd -->
+    
+    
+	</div>	
+		
+	<div data-role="footer">
+	   <h4></h4>
+	</div>
+
+</div><!-- /page -->
+
+</body>
+</html>

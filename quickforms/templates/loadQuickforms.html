@@ -1,0 +1,23 @@
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<html class = "ui-mobile-rendering">
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">	
+	<link rel="stylesheet" href="/quickforms/css/quickforms/quickforms.css" />
+	<script src = "/quickforms/js/require.min.js" ></script>
+</head>
+<body>
+<div data-role="page" id="loadQuickformsTemplate">
+	<script type="text/javascript">
+	require(['/quickforms/js/quickforms.js'],function(){
+			quickforms.registerReadyFunction(function()
+			{
+				// Do quickforms module loading here
+			});
+		});
+	</script>
+	<div data-role="content">
+		<div class="ui-bar-a"><h1 align="center">Hello World</h1></div>
+	</div>
+</div>
+</body>
+</html>
