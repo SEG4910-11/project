@@ -1,7 +1,7 @@
 
 define(['dom/form/form'],
 function (){
-	quickforms.CheckboxElement = function(dom,formObj,label) // Create one of these for every control
+	quickforms.CheckboxElement = function(dom,formObj,label) // Monitors checkbox activity
 	{
 		quickforms.DomElement.call(this,dom); // super call to get parent attributes
 		var me = this;

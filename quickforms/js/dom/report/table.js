@@ -1,17 +1,37 @@
 define(['jquery/jquery.dataTables','server/getFactData'],function(){
-quickforms.loadTableReport = function(params) //appName *, queryName, crossTabs *, parameterList*, callback*
+quickforms.tableControl = quickforms.tableControl || {list:{}};
+quickforms.loadTableReport = function(params) //appName *, queryName, crossTabs *, parameterList*, callback*,whereclause*, domId*
 {
 	params.appName = params.appName || quickforms.app;
 	params.parameterList = params.parameterList || '';
 	params.callback = params.callback || function(){};
 	params.crossTabs = params.crossTabs || [];
+	params.whereclause = params.whereclause || '1=1';
+	params.domId = params.domId || 'mainData';
 	
 	quickforms.loadCss(quickforms.jqueryDataTableCss);
 	quickforms.initLoadingGif();
-	
+	quickforms.tableControl.list[params.domId]=quickforms.tableControl.list[params.domId]||{
+		params:params,
+		dom:$('#'+params.domId),
+		callback:quickforms.loadTableReport
+	};
 	var createTable = function(data)
 	{
 		var mainTable = $('#mainData');
+		if(!isJSONString(data))
+		{
+			if(data.indexOf(']')>=0) // returned array is empty
+			{
+					quickforms.hideLoadingGif();
+					data = '[["No Data"]]';
+			}
+			else
+			{
+					alertJSONError(data);
+					return;
+			}
+		}
 		if(isJSONString(data))
 		{
 			var json = JSON.parse(data),
@@ -62,7 +82,9 @@ quickforms.loadTableReport = function(params) //appName *, queryName, crossTabs 
 		else
 		{
 			mainTable.remove();
-			alertJSONError(data);
+			if(data.indexOf(']')==0)
+				quickforms.hideLoadingGif();
+			//alertJSONError(data);
 		}
 		
 		params.callback();

@@ -2,7 +2,7 @@ define(['server/putFact','server/getFactData'],function(){
 quickforms.form = {
 	domParsers : []
 };
-quickforms.FormElement = function(dom,app,fact) // Create one of these for every control
+quickforms.FormElement = function(dom,app,fact) // Maintains all QF's form objects
 {
 	quickforms.DomElement.call(this,dom); // super call to get parent attributes
 	this.children = [];

@@ -25,8 +25,9 @@ function(){
 			dom = $(dom);
 			var lookupName = $(dom.attr("href")).attr("qf-lookup").replace('Multi',''); // get the filldiv lookup from the li href
 			var filter = $(dom.attr("href")).attr("qf-filter").split(","); // get the filldiv filter from the li href
-			var downloadButton = $('<img src="/quickforms/css/quickforms/images/downloadIcon.png" onClick="quickforms.getLookupCsv(quickforms.app,\''+lookupName+'\',\''+filter+'\')" >');
-			var uploadButton = $('<img src="/quickforms/css/quickforms/images/uploadIcon.png" onClick="window.location=\'/quickforms/templates/dom/uploadExample.html?app='+quickforms.app+'&filter='+filter+'\'" >');
+			var downloadButton = $('<img src="'+quickforms.cssUrl+'quickforms/images/downloadIcon.png" onClick="quickforms.getLookupCsv(quickforms.app,\''+lookupName+'\',\''+filter+'\')" >');
+			var uploadButton = $('<img src="'+quickforms.cssUrl+'quickforms/images/uploadIcon.png" onClick="window.location=\''+
+                                                        quickforms.quickformsUrl+'/templates/dom/uploadExample.html?app='+quickforms.app+'&filter='+filter+'\'" >');
 			dom.find('span').find('span').append(downloadButton).append(uploadButton);
 		});
 		myForm.find("[data-role='navbar']").trigger('create');
@@ -77,9 +78,11 @@ function(){
 		myForm.append('<h3 id="labelText" style="margin-left:20px">'+labelText+'</h3>');
 		//append the back button that redirects the user to the main editing page
 		var backButton = $('<a id="editBack" data-role="button" onClick="designPage()" data-icon="back" data-inline="true">Back</a>');
-		var downloadButton = $('<a id="editGetCsv" data-role="button" onClick="quickforms.getLookupCsv(quickforms.app,\''+lookupName+'\')" data-icon="arrow-d" data-theme="b" data-inline="true">Get CSV</a>');
+		var downloadButton = $('<a id="editGetCsv" data-role="button" onClick="quickforms.getLookupCsv(quickforms.app,\''+lookupName+'\')" data-icon="arrow-d" data-theme="c" data-inline="true">Download</a>');
+                var uploadButton = $('<a id="editGetCsv" data-role="button" href="'+quickforms.quickformsUrl+'templates/dom/uploadExample.html?app='+quickforms.app+'" data-icon="arrow-u" data-theme="c" data-inline="true">Upload</a>');
 		myForm.find('#labelText').before(backButton);
 		myForm.find('#labelText').before(downloadButton);
+                myForm.find('#labelText').before(uploadButton);
 		backButton.parent().trigger("create",true);
 				
 			

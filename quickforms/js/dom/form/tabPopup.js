@@ -1,5 +1,5 @@
 define(['dom/form/form'],function(){
-	quickforms.TabPopupElement = function(dom,formObj) // Create one of these for every control
+	quickforms.TabPopupElement = function(dom,formObj) // AJAX in popup html, summarizes inputted data
 	{
 		quickforms.DomElement.call(this,dom); // super call to get parent attributes
 		var me = this;

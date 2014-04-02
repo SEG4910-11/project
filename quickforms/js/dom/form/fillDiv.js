@@ -4,7 +4,7 @@ define(['dom/form/form',
 	'dom/form/checkbox',
 	'dom/form/select'],
 function (){ 
-	quickforms.FillDiv = function(dom,formObj) // Create one of these for every control
+	quickforms.FillDiv = function(dom,formObj) // Fills a div with selects or checkboxes from the database
 	{
 		quickforms.DomElement.call(this,dom); // super call to get parent attributes
 		var me = this;

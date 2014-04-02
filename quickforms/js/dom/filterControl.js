@@ -1,8 +1,9 @@
-define(['dom/form/form'],function(){
-quickforms.filterControl = function(url,divId){
+define(['dom/form/form','dom/form/range'],function(){
+quickforms.filterControl = function(url,divId){ // AJAX in the filter HTML, fills the sql whereclause
     this.url = url;
     this.divId = divId;
     this.form = '';
+    this.summary = '';
     this.dom = $("#"+divId);
 	var me = this;
     this.appendButtons = function(page){
@@ -17,7 +18,18 @@ quickforms.filterControl = function(url,divId){
 	this.createFilterButton = function(){
 		setTimeout(function(){ // timeout so table has time to load
 			me.button = $('<a class="previous paginate_button paginate_button_disabled" style = "position:absolute;left:48%;top:35px">Filter</a>');
-			$('#'+me.divId+'_paginate').prepend(me.button);
+			var paginate = $('#'+me.divId+'_paginate');
+			if(paginate.length==0)
+			{
+				var top = $('#'+me.divId+'_wrapper div[class="top"]');
+				top.append('<div class="dataTables_paginate paging_full_numbers" id="mainData_paginate"></div>');
+				paginate = $('#'+me.divId+'_paginate');
+			}
+			paginate.prepend(me.button);
+			if($('#filterSummary').length == 0){
+				$('#'+divId+'_wrapper div[class="top"]').prepend($('<div id ="filterSummary" style="text-align:center">'+me.summary+'</div>'));
+			}
+
 			me.button.on("click",function(){
 					$.mobile.changePage(me.url);
 			});
@@ -31,7 +43,7 @@ quickforms.filterControl = function(url,divId){
 		return serial;
 	};
 };
-quickforms.createFilter = function(url,divId)
+quickforms.loadFilter = function(url,divId)
 {
 	var dialogId = url.substring(0,url.indexOf(".")),
 		filterObj = new quickforms.filterControl(url,divId);
@@ -66,47 +78,44 @@ quickforms.createFilter = function(url,divId)
 quickforms.updateFilter = function(divId){
 	var tableControl = quickforms.tableControl.list[divId],
 		form = tableControl.filter.form,
-		serial = '';
-	tableControl.oldWhereclause = tableControl.oldWhereclause || tableControl.params.whereclause;
+		serial = '',
+		summary = '';
+	var tableControls = quickforms.tableControl.list;
+	var includedCount = 0;
+	
+	for(var filFocus in tableControls)
+	{
+		tableControls[filFocus].oldWhereclause = tableControls[filFocus].oldWhereclause || tableControls[filFocus].params.whereclause;
+	}
 	for(var i in form.children)
 	{
 		var child = form.children[i];
 		if(child.dom.parents('div[class*="range"]').length == 0 && child.included)
 		{
-			if(i>0 || tableControl.oldWhereclause.length>0)
-				serial +=" and ";
-			if(child.dom.hasClass('date'))
-			{
-				serial += 'convert(varchar,'+child.name+',101)'+"='"+child.dom.val()+"'";
-			}
-			else if(child.dom.hasClass('range'))
-			{
-				if(child.left.val())
-				{
-					serial += child.left.attr('name')+">='"+child.left.val()+"'";
-				}			
-				if(child.right.val())
-				{
-					if(child.left.val())
-						serial += " and ";
-					serial += child.right.attr('name')+"<='"+child.right.val()+"'";
-				}
-			}
-			else 
-			{
-				serial += child.name+"='"+child.dom.val()+"'";
-			}
+			
+			if(includedCount>0 || tableControl.oldWhereclause.length>0){serial +=" and ";}
+			if(includedCount>0){summary += ' , ';}
+			serial += child.filter();	
+			summary += child.summary();
+			includedCount +=1;
 		}
 	}
+	if(includedCount>0)
+		tableControl.filter.summary = "<b>Filtered By: </b>"+summary.replace(/<br \/>/g,'');
 	serial = tableControl.filter.scrubSerial(serial);
-	//$('#ui-datepicker-div').remove();
-	tableControl.params.whereclause = tableControl.oldWhereclause + serial;
+	
+	
 	var oldCallback = tableControl.params.callback;
 	tableControl.params.callback = function(){
 		oldCallback();
 		tableControl.filter.createFilterButton();
 	};
-	quickforms.loadTable(tableControl.params);
+	
+	for(var filFocus in tableControls)
+	{
+		tableControls[filFocus].params.whereclause = tableControls[filFocus].oldWhereclause + serial;
+		tableControls[filFocus].callback(tableControls[filFocus].params);
+	}
 	
 };
 quickforms.clearFilter = function(divId){
@@ -124,73 +133,44 @@ quickforms.clearFilter = function(divId){
 			$(document).one('pageinit', filter.pageId, function(){
 				$.mobile.changePage(filter.url);	
 			});
-			quickforms.createFilter(filter.url,filter.divId);
+			quickforms.loadFilter(filter.url,filter.divId);
         },50);
 };
 quickforms.cancelFilter = function(divId)
 {
 	//$('#ui-datepicker-div').remove();
-	var tableControl = quickforms.tableControl.list[divId];
-	quickforms.loadTable(tableControl.params);
+	var tableControls = quickforms.tableControl.list;
+	for(var divId in tableControls)
+	{
+		tableControls[divId].callback(tableControls[divId].params);
+	}
 };
 quickforms.form.domParsers.push(function(formObj){
-    
-    $('div[class="range"]').each(function(i,dom){
-        dom = $(dom);
-		
-		var rangeCheck = $('<input type="checkbox" data-inline="true"/>');
-		rangeCheck.checkboxradio();
-        var rangeObj = new quickforms.RangeElement(dom,formObj);
-        rangeObj.left = $(rangeObj.dom.find("input,select")[0]);
-        rangeObj.right = $(rangeObj.dom.find("input,select")[1]);
-		dom.on('click',function(){
-			rangeObj.included = true;
-			var label = $('label[for="'+rangeObj.dom[0].id+'"]');
-			if(label.length>0)
-			{
-				if(label[0].innerHTML.indexOf("Included")==-1)
-					label[0].innerHTML += " (Included)";
-			}
-		});
-		
-        formObj.addChild(rangeObj);
-		window.setTimeout(function(){formObj.finishedParsing();},1);
-    });
-	formObj.completedListeners.push(function(){
-		for(var i in formObj.children)
-		{
-			var child = formObj.children[i];
-				
-			child.dom.on('change',function(){
-				var obj = formObj.childMap[$(this)[0].id];
-				obj.included = true;
-				var label = $('label[for="'+obj.dom[0].id+'"]');
-				if(label.length>0)
-				{
-					if(label[0].innerHTML.indexOf("Included")==-1)
-						label[0].innerHTML += " (Included)";
-				}
-			});
-			if(!isNull(getCookie(formObj.id+child.name)))
-				child.dom.trigger('change');
-		}
-		var tableControl = quickforms.tableControl.list[formObj.tableId],
-			filter = tableControl.filter;
-		filter.completed = true;
-	});
+    if(formObj.fact.indexOf('filter')>=0) // ensure persisted module does not confict with another form
+    {
+        formObj.completedListeners.push(function(){
+                for(var i in formObj.children)
+                {
+                        var child = formObj.children[i];
+
+                        child.dom.on('change',function(){
+                                var obj = formObj.childMap[$(this)[0].id];
+                                obj.included = true;
+                                var label = $('label[for="'+obj.dom[0].id+'"]');
+                                if(label.length>0)
+                                {
+                                        if(label[0].innerHTML.indexOf("Included")==-1)
+                                                label[0].innerHTML += " (Included)";
+                                }
+                        });
+                        if(!isNull(getCookie(formObj.id+child.name)))
+                                child.dom.trigger('change');
+                }
+                var tableControl = quickforms.tableControl.list[formObj.tableId],
+                        filter = tableControl.filter;
+                filter.completed = true;
+        });
+    }
 });
-quickforms.RangeElement = function(dom,formObj)
-{
-	quickforms.DomElement.call(this,dom); // super call to get parent attributes
-	var me = this;
-	this.parent = formObj;
-	this.serialize = function()
-	{
-		return '';
-	};
-	this.summary = function()
-	{
-		return '';
-	};
-};
+
 });

@@ -2,7 +2,7 @@
 define(['dom/form/form',
 	'server/getFieldSelection'],
 function (){
-	quickforms.SelectElement = function(dom,formObj,multiple)
+	quickforms.SelectElement = function(dom,formObj,multiple) // Monitors select activity
 	{
 		quickforms.DomElement.call(this,dom); // super call to get parent attributes
 		var me = this;
@@ -74,6 +74,12 @@ function (){
 				return this.label + "<br />";
 			}
 			return '';
+		};
+		this.filter = function()
+		{
+			if(this.measure)
+				return this.name +'=\''+this.label+'\'';
+			return this.name +'=\''+this.selectedField+'\'';
 		};
 	}
 	quickforms.form.domParsers.push(function(formObj){

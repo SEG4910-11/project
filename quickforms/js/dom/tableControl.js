@@ -1,16 +1,19 @@
 define(['jquery/jquery.dataTables','server/getFactData'],function(){
-quickforms.tableControl = {
-	list:{}
-};
-quickforms.loadTable = function(params) //appName, queryName, parameterList, callback, domId*
+quickforms.tableControl = quickforms.tableControl || {list:{}};
+quickforms.loadTable = function(params) //appName, queryName, parameterList, callback, domId*, whereclause*
 {
 	params.appName = params.appName || quickforms.app;
 	params.parameterList = params.parameterList || '';
 	params.callback = params.callback || function(){};
 	params.domId = params.domId || 'mainData';
+	params.whereclause = params.whereclause || '1=1';
 	
 	quickforms.loadCss(quickforms.jqueryDataTableCss);
-	quickforms.tableControl.list[params.domId]=quickforms.tableControl.list[params.domId]||{params:params,dom:$('#'+params.domId)};
+	quickforms.tableControl.list[params.domId]=quickforms.tableControl.list[params.domId]||{
+		params:params,
+		dom:$('#'+params.domId),
+		callback:quickforms.loadTable
+	};
 	var appendTableData = function(data){
 		var mainTable = $('#'+params.domId);
 		if(mainTable.children().length>0)

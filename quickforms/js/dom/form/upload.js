@@ -1,7 +1,7 @@
 
 define(['dom/form/form','server/putLookup','server/getLookupCsv'],
 function (){
-	quickforms.FileElement = function(dom,formObj) // Create one of these for every control
+	quickforms.FileElement = function(dom,formObj) // Modifies regular AJAX call to allow for file transfer
 	{
 		quickforms.DomElement.call(this,dom); // super call to get parent attributes
 		var me = this;

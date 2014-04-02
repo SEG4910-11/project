@@ -65,15 +65,17 @@ var quickforms = new function(){
 			if(this.loadingCounter == null)
 				this.loadingCounter = 0;
 			this.loadCss('quickforms/loadingGif.css');
-			$('body').append('<div class="content-blocker" id="content-blocker'+this.loadingCounter+'"><img src="'+this.cssUrl+'quickforms/images/loading.gif" class="loading-gif"></img></div>');
+			var contentBlock = $('<div class="content-blocker" id="content-blocker'+this.loadingCounter+'"><img src="'+this.cssUrl+'quickforms/images/loading.gif" class="loading-gif"></img></div>');
+			$('body').append(contentBlock);
 			this.loadingCounter +=1;
-			window.setTimeout(function(){
+			var timeoutId = window.setTimeout(function(){
 				if($('.content-blocker').length>0)
 				{
 					quickforms.toast("Error. Please see JavaScript log");
 					quickforms.hideLoadingGif();
 				}
 			},maxTime);
+			contentBlock[0].timeoutId = timeoutId;
 		}
 	};
 	this.hideLoadingGif = function()
@@ -82,7 +84,9 @@ var quickforms = new function(){
 		{
 			if(this.hideCounter == null)
 				this.hideCounter = 0;
-			$(".content-blocker").first().remove();
+			var conBlock = $(".content-blocker").first();
+			if(conBlock.length>0){window.clearTimeout(conBlock[0].timeoutId);}
+			conBlock.remove();
 			this.hideCounter += 1;
 		}
 	};

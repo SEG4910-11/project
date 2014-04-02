@@ -7,12 +7,16 @@ function (){
 		quickforms.loadCss('jquery/jquery-ui-1.10.3.custom.min.css');
 		var dateDom = formObj.dom.find('input.date');
 		dateDom.datepicker();
-		//var timeDom = formObj.dom.find('input.datetime');
-		//timeDom.datepicker();
-		//timeDom.each(function(i,dom){
-		//	$(dom).timePicker();
-		//});
 		
+		var dateDiv = $('#ui-datepicker-div'),
+			dateParent = dateDiv.parent();
+		if(dateDom.length>0 && dateDiv.index()+1 < dateParent.children().length)
+		{
+			dateDom.datepicker('destroy');
+			dateDom.removeClass('hasDatepicker')
+			dateDiv.remove();
+			dateDom.datepicker();
+		}
 	});
         quickforms.extendClass('TextElement',function(texObj){
             var oldFilter = texObj.filter;

@@ -2,7 +2,7 @@
 define(['dom/form/form',
 	'server/getFieldSelection'],
 function (){
-	quickforms.TextElement = function(dom,formObj) // Create one of these for every control
+	quickforms.TextElement = function(dom,formObj) // Monitors text activity
 	{
 		quickforms.DomElement.call(this,dom); // super call to get parent attributes
 		var me = this;

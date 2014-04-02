@@ -12,7 +12,7 @@ function (){
 			});
 		});
 	});
-        /*quickforms.extendClass('TextElement',function(texObj){
+        quickforms.extendClass('TextElement',function(texObj){
             var oldFilter = texObj.filter;
             texObj.filter = function(){
                 if(texObj.dom.hasClass('datTime'))
@@ -26,5 +26,5 @@ function (){
                     return oldFilter.call(texObj);
                 }
             }
-        });*/
+        });
 });
