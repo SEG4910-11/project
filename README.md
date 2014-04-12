@@ -7,6 +7,5 @@ The quickform folder is the server where all the three applications Palis3, segC
 Another folder which is called "test" contains our basic test cases that are being implemented to test our code.
 
 
-//### Build Status
-//[![Build Status](https://travis-ci.org/SEG4910-11/project.png)](https://travis-ci.org/SEG4910-11/project)
+
 
