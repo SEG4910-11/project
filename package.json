@@ -1,12 +1,30 @@
+
 {
-  /*"name": "node-travis",
-  "version": "0.1.0",
-  "devDependencies": {
-    "grunt": "0.4.1",
-    "grunt-cli": "0.1.9",
-    "grunt-contrib-jshint": "0.6.0"
+  "name": "project",
+  "description": "Quickforms Application Manager",
+  "repository": {
+    "type": "git",
+    "url": "git:https://github.com/SEG4910-11/project"
   },
+  
+  "bugs": {
+    "url": "hhttps://github.com/SEG4910-11/project/issues"
+  },
+  
+  "dependencies": {},
+  "devDependencies": {
+    "coffee-script": "~1.3.3",
+    "mocha": "~1.4.0",
+    "mocha-cakes": "~0.9.0",
+    "should": "~1.1.0"
+  },
+  
+  "engines": {
+    "node": "0.8.x",
+    "npm": "1.1.x"
+  },
+  
   "scripts": {
-    "test": "grunt --verbose"*/
+    "test": "mocha -r mocha-cakes"
   }
 }
